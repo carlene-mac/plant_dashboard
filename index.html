@@ -2569,6 +2569,33 @@ const PLANTA_DATA = {
 
 function getPlanta(p) { return PLANTA_DATA[p.name] || null; }
 
+// ── PLANT STAGE (localStorage) ────────────────
+function getStage(prefix, name) {
+  try { return localStorage.getItem('plantStage:' + prefix + ':' + name) || null; } catch(e) { return null; }
+}
+function cycleStageClick(prefix, name) {
+  const cur = getStage(prefix, name);
+  const next = cur === null ? 'vegetative' : cur === 'vegetative' ? 'flowering' : null;
+  try {
+    if (next === null) localStorage.removeItem('plantStage:' + prefix + ':' + name);
+    else localStorage.setItem('plantStage:' + prefix + ':' + name, next);
+  } catch(e) {}
+  const id = 'sBtn_' + prefix + '_' + name.replace(/[^a-z0-9]/gi, '_');
+  const el = document.getElementById(id);
+  if (el) {
+    el.textContent = next === 'vegetative' ? '🌱 Vegetative' : next === 'flowering' ? '🌸 Flowering' : '○ Stage';
+    el.className = 'tag stage-btn ' + (next === 'vegetative' ? 'stage-vegetative' : next === 'flowering' ? 'stage-flowering' : 'stage-unset');
+  }
+}
+function stageBtnHtml(prefix, name) {
+  const s = getStage(prefix, name);
+  const safe = name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  const id = 'sBtn_' + prefix + '_' + name.replace(/[^a-z0-9]/gi, '_');
+  const label = s === 'vegetative' ? '🌱 Vegetative' : s === 'flowering' ? '🌸 Flowering' : '○ Stage';
+  const cls = s === 'vegetative' ? 'stage-vegetative' : s === 'flowering' ? 'stage-flowering' : 'stage-unset';
+  return `<span class="tag stage-btn ${cls}" id="${id}" onclick="cycleStageClick('${prefix}','${safe}')" title="Click to set Planta stage">${label}</span>`;
+}
+
 function needsWater(p) {
   if (p.dryPeriod === "long") return false;  // succulents — empty reservoir is expected
   if (p.dryPeriod !== "na") return p.reservoir === "empty";  // Naked Root: reservoir is source of truth
