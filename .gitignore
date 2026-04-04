@@ -1,0 +1,12 @@
+planta_tokens.json
+planta_plants.json
+planta_snapshot_*.json
+planta_sync.log
+*.py
+serve.py
+push-to-github.sh
+plant-dashboard.html
+plant-dashboard.md
+garden-dashboard.html
+merge_dashboards.py
+plants-combined.html
