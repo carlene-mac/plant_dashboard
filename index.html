@@ -734,6 +734,9 @@
       </div>
     </div>
 
+    <!-- Progress ring -->
+    <div id="today-progress-section" style="margin-bottom:1.75rem;"></div>
+
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;">
 
       <!-- Houseplants column -->
@@ -1203,10 +1206,97 @@ function buildTodayTab() {
   const allData = Object.assign({}, typeof PLANTA_DATA !== 'undefined' ? PLANTA_DATA : {},
                                      typeof OUTDOOR_DATA !== 'undefined' ? OUTDOOR_DATA : {});
 
-  renderSection('today-houseplants', collectTasks(allData, false));
-  renderSection('today-garden',      collectTasks(allData, true));
+  const houseTasks  = collectTasks(allData, false);
+  const gardenTasks = collectTasks(allData, true);
+  renderSection('today-houseplants', houseTasks);
+  renderSection('today-garden',      gardenTasks);
+
+  // Detect tasks completed today from lastWater / lastFertilize
+  const doneToday = [];
+  for (const [name, d] of Object.entries(allData)) {
+    if (d.lastWater     === today) doneToday.push({ icon: '💧', label: 'Watered',    name });
+    if (d.lastFertilize === today) doneToday.push({ icon: '🌿', label: 'Fertilized', name });
+  }
+  const totalPending = houseTasks.overdue.length + houseTasks.dueToday.length
+                     + gardenTasks.overdue.length + gardenTasks.dueToday.length;
+  buildProgressSection(doneToday.length, doneToday.length + totalPending, doneToday);
+
   populateNotePicker();
   renderNotesLog();
+}
+
+function buildProgressSection(doneCount, total, doneList) {
+  const el = document.getElementById('today-progress-section');
+  if (!el) return;
+
+  const pct    = total > 0 ? doneCount / total : 0;
+  const r      = 42;
+  const circ   = +(2 * Math.PI * r).toFixed(2);
+  const offset = +(circ * (1 - pct)).toFixed(2);
+  const allDone = total > 0 && doneCount >= total;
+  const accent  = allDone ? '#2d9a4f' : '#2d5a27';
+  const ringBg  = allDone ? '#d4f5e2' : '#e8ede8';
+
+  // Streak via localStorage — increments each day any care is done
+  const key    = 'plant-streak';
+  const todayS = new Date().toISOString().slice(0, 10);
+  const yestS  = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  const stored = JSON.parse(localStorage.getItem(key) || '{"date":"","count":0}');
+  let streak   = stored.count;
+  if (doneCount > 0 && stored.date !== todayS) {
+    streak = stored.date === yestS ? stored.count + 1 : 1;
+    localStorage.setItem(key, JSON.stringify({ date: todayS, count: streak }));
+  }
+
+  const msg = pct === 0
+    ? 'Your plants are waiting! 🌱'
+    : pct < 0.34
+    ? `Good start! ${total - doneCount} more to go 💪`
+    : pct < 0.67
+    ? `You're on a roll! ${total - doneCount} left 🌿`
+    : pct < 1
+    ? `Almost there — just ${total - doneCount} more 🌸`
+    : `Plant parent of the day! 🏆`;
+
+  const streakBadge = streak >= 2
+    ? `<span style="display:inline-flex;align-items:center;gap:0.25rem;background:#fff3e0;border:1px solid #ffb74d;border-radius:20px;padding:0.15rem 0.6rem;font-size:0.72rem;color:#e65100;font-weight:700;">🔥 ${streak}-day streak</span>`
+    : streak === 1
+    ? `<span style="display:inline-flex;align-items:center;gap:0.25rem;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:20px;padding:0.15rem 0.6rem;font-size:0.72rem;color:#2d5a27;font-weight:700;">🌱 Day 1</span>`
+    : '';
+
+  const chips = doneList.length
+    ? `<div style="margin-top:0.6rem;display:flex;flex-wrap:wrap;gap:0.35rem;">
+        ${doneList.slice(0, 10).map(d =>
+          `<span style="background:#eaf6e0;border:1px solid #b8dfa0;border-radius:20px;padding:0.18rem 0.55rem;font-size:0.7rem;color:#2d5a27;">✅ ${d.icon} ${d.name}</span>`
+        ).join('')}
+        ${doneList.length > 10
+          ? `<span style="font-size:0.7rem;color:#888;padding:0.18rem 0.3rem;">+${doneList.length - 10} more</span>`
+          : ''}
+      </div>`
+    : '';
+
+  el.innerHTML = `
+    <div style="background:white;border-radius:16px;border:2px solid ${allDone ? '#a8d977' : '#ddd8ce'};padding:1.2rem 1.4rem;display:flex;align-items:center;gap:1.4rem;${allDone ? 'box-shadow:0 0 0 4px #d4f5e2;' : ''}">
+      <div style="flex-shrink:0;">
+        <svg width="96" height="96" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="${r}" fill="none" stroke="${ringBg}" stroke-width="9"/>
+          <circle cx="50" cy="50" r="${r}" fill="none" stroke="${accent}" stroke-width="9"
+            stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${offset}"
+            transform="rotate(-90 50 50)"
+            style="transition:stroke-dashoffset 0.7s ease;"/>
+          <text x="50" y="47" text-anchor="middle" font-size="20" font-weight="800" fill="${accent}" font-family="system-ui,sans-serif">${doneCount}</text>
+          <text x="50" y="62" text-anchor="middle" font-size="10" fill="#999" font-family="system-ui,sans-serif">of ${total}</text>
+        </svg>
+      </div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:1rem;font-weight:700;color:${accent};margin-bottom:0.3rem;">${msg}</div>
+        <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:#666;flex-wrap:wrap;">
+          <span>${doneCount} task${doneCount !== 1 ? 's' : ''} done today</span>
+          ${streakBadge}
+        </div>
+        ${chips}
+      </div>
+    </div>`;
 }
 
 // ═══════════════════════════════════════════════════════════════
