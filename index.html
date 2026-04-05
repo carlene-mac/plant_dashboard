@@ -1115,10 +1115,27 @@ function buildTodayTab() {
   setTodayQuoteAndFact();
 
   const CARE = [
-    { field: 'nextWater',      icon: '💧', label: 'Water' },
-    { field: 'nextMist',       icon: '💦', label: 'Mist'  },
-    { field: 'nextFertilize',  icon: '🌿', label: 'Fertilize' },
+    { field: 'nextWater',     icon: '💧', label: 'Water' },
+    { field: 'nextMist',      icon: '💦', label: 'Mist'  },
+    { field: 'nextFertilize', icon: '🌿', label: 'Fertilize' },
+    { field: 'nextRepot',     icon: '🪴', label: 'Repot' },
   ];
+
+  const TYPE_META = {
+    'Water':     { color: '#1a6ea8', bg: '#e8f3fb' },
+    'Mist':      { color: '#3a7fb5', bg: '#eaf4fb' },
+    'Fertilize': { color: '#2d7a27', bg: '#e8f5e5' },
+    'Repot':     { color: '#7a4f1a', bg: '#f5ede5' },
+  };
+  const TYPE_ORDER = ['Water', 'Mist', 'Fertilize', 'Repot'];
+
+  // Build name→room lookup from PLANTS array (has houseSpot)
+  const spotMap = {};
+  if (typeof PLANTS !== 'undefined') {
+    for (const p of PLANTS) {
+      if (p.name && p.houseSpot && p.houseSpot !== '—') spotMap[p.name] = p.houseSpot;
+    }
+  }
 
   // Outdoor plant names (matches keys in OUTDOOR_DATA)
   const OUTDOOR_NAMES = new Set(Object.keys(typeof OUTDOOR_DATA !== 'undefined' ? OUTDOOR_DATA : {}));
@@ -1129,14 +1146,16 @@ function buildTodayTab() {
       const isOutdoor = OUTDOOR_NAMES.has(name);
       if (filterOutdoor !== isOutdoor) continue;
 
+      const spot = spotMap[name] || (isOutdoor ? 'Garden' : 'Unassigned');
+
       for (const { field, icon, label } of CARE) {
         const val = d[field];
         if (!val || val === 'null') continue;
-        if (val < today)       overdue.push({ icon, label, name, date: val });
-        else if (val === today) dueToday.push({ icon, label, name });
+        if (val < today)        overdue.push({ icon, label, name, date: val, spot });
+        else if (val === today)  dueToday.push({ icon, label, name, spot });
       }
       if (d.health === 'bad' || d.health === 'sick') {
-        sick.push({ name, health: d.health });
+        sick.push({ name, health: d.health, spot });
       }
     }
     overdue.sort((a, b) => a.date.localeCompare(b.date) || a.name.localeCompare(b.name));
@@ -1147,52 +1166,79 @@ function buildTodayTab() {
   function renderSection(containerId, tasks) {
     const el = document.getElementById(containerId);
     const { overdue, dueToday, sick } = tasks;
-    const total = overdue.length + dueToday.length + sick.length;
+
+    // Merge overdue + dueToday, flag which are overdue
+    const allTasks = [
+      ...overdue.map(t => ({ ...t, isOverdue: true })),
+      ...dueToday.map(t => ({ ...t, isOverdue: false })),
+    ];
+    const total = allTasks.length + sick.length;
 
     if (!total) {
       el.innerHTML = '<p style="color:#888; font-size:0.85rem;">All clear.</p>';
       return;
     }
 
+    // Group by task type
+    const byType = {};
+    for (const t of allTasks) {
+      if (!byType[t.label]) byType[t.label] = [];
+      byType[t.label].push(t);
+    }
+
     let html = '';
 
-    if (overdue.length) {
-      html += `<div style="margin-bottom:1.25rem;">
-        <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.08em; color:#c0392b; text-transform:uppercase; margin-bottom:0.5rem;">⚠ Overdue (${overdue.length})</div>
-        <ul style="list-style:none; margin:0; padding:0;">`;
-      for (const t of overdue) {
-        html += `<li style="display:flex; align-items:baseline; gap:0.5rem; padding:0.3rem 0; border-bottom:1px solid #ede9e0; font-size:0.85rem;">
-          <span style="font-size:1rem;">${t.icon}</span>
-          <span style="font-weight:600; color:#2d2d2d;">${t.name}</span>
-          <span style="color:#c0392b; font-size:0.75rem; margin-left:auto;">${t.label} · was ${t.date}</span>
-        </li>`;
+    for (const label of TYPE_ORDER) {
+      const items = byType[label];
+      if (!items || !items.length) continue;
+
+      const meta = TYPE_META[label];
+
+      // Group by room within this task type
+      const byRoom = {};
+      for (const t of items) {
+        if (!byRoom[t.spot]) byRoom[t.spot] = [];
+        byRoom[t.spot].push(t);
       }
-      html += '</ul></div>';
+      const rooms = Object.keys(byRoom).sort();
+
+      html += `<div style="margin-bottom:1.75rem;">
+        <div style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; color:${meta.color}; text-transform:uppercase; margin-bottom:0.6rem; padding:0.35rem 0.6rem; background:${meta.bg}; border-radius:4px; display:inline-block;">
+          ${CARE.find(c => c.label === label).icon} ${label} &nbsp;<span style="font-weight:400; opacity:0.7;">${items.length}</span>
+        </div>`;
+
+      for (const room of rooms) {
+        const roomItems = byRoom[room].sort((a, b) => a.name.localeCompare(b.name));
+        html += `<div style="margin-bottom:0.6rem; margin-left:0.25rem;">
+          <div style="font-size:0.65rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:0.07em; margin-bottom:0.25rem;">${room}</div>
+          <ul style="list-style:none; margin:0; padding:0;">`;
+        for (const t of roomItems) {
+          const overdueTag = t.isOverdue
+            ? `<span style="font-size:0.68rem; color:#c0392b; background:#fde8e8; padding:0.1rem 0.4rem; border-radius:3px; margin-left:auto; white-space:nowrap;">⚠ was ${t.date}</span>`
+            : '';
+          html += `<li style="display:flex; align-items:center; gap:0.5rem; padding:0.22rem 0; border-bottom:1px solid #ede9e0; font-size:0.85rem;">
+            <span style="font-weight:600; color:#2d2d2d; flex:1;">${t.name}</span>
+            ${overdueTag}
+          </li>`;
+        }
+        html += '</ul></div>';
+      }
+
+      html += '</div>';
     }
 
-    if (dueToday.length) {
-      html += `<div style="margin-bottom:1.25rem;">
-        <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.08em; color:#2d5a27; text-transform:uppercase; margin-bottom:0.5rem;">📅 Due Today (${dueToday.length})</div>
-        <ul style="list-style:none; margin:0; padding:0;">`;
-      for (const t of dueToday) {
-        html += `<li style="display:flex; align-items:baseline; gap:0.5rem; padding:0.3rem 0; border-bottom:1px solid #ede9e0; font-size:0.85rem;">
-          <span style="font-size:1rem;">${t.icon}</span>
-          <span style="font-weight:600; color:#2d2d2d;">${t.name}</span>
-          <span style="color:#666; font-size:0.75rem; margin-left:auto;">${t.label}</span>
-        </li>`;
-      }
-      html += '</ul></div>';
-    }
-
+    // Sick / needs attention
     if (sick.length) {
       html += `<div style="margin-bottom:1.25rem;">
-        <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.08em; color:#c0392b; text-transform:uppercase; margin-bottom:0.5rem;">🚨 Needs Attention (${sick.length})</div>
+        <div style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; color:#c0392b; text-transform:uppercase; margin-bottom:0.6rem; padding:0.35rem 0.6rem; background:#fde8e8; border-radius:4px; display:inline-block;">
+          🚨 Needs Attention &nbsp;<span style="font-weight:400; opacity:0.7;">${sick.length}</span>
+        </div>
         <ul style="list-style:none; margin:0; padding:0;">`;
       for (const s of sick) {
-        html += `<li style="display:flex; align-items:baseline; gap:0.5rem; padding:0.3rem 0; border-bottom:1px solid #ede9e0; font-size:0.85rem;">
+        html += `<li style="display:flex; align-items:center; gap:0.5rem; padding:0.22rem 0; border-bottom:1px solid #ede9e0; font-size:0.85rem;">
           <span style="font-size:1rem;">🤒</span>
-          <span style="font-weight:600; color:#2d2d2d;">${s.name}</span>
-          <span style="color:#c0392b; font-size:0.75rem; margin-left:auto;">${s.health}</span>
+          <span style="font-weight:600; color:#2d2d2d; flex:1;">${s.name}</span>
+          <span style="color:#c0392b; font-size:0.75rem;">${s.health}</span>
         </li>`;
       }
       html += '</ul></div>';
