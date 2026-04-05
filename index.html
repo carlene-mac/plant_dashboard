@@ -1050,7 +1050,7 @@ function saveNote() {
 
   const notes = loadNotes();
   if (!notes[plant]) notes[plant] = [];
-  notes[plant].unshift({ text, date: new Date().toISOString().slice(0,10) });
+  notes[plant].unshift({ text, date: new Date().toLocaleDateString('en-CA') });
   saveNotes(notes);
 
   document.getElementById('note-input').value = '';
@@ -1109,7 +1109,7 @@ function getNotesForCard(plantName) {
 // TODAY TAB
 // ═══════════════════════════════════════════════════════════════
 function buildTodayTab() {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = new Date().toLocaleDateString('en-CA');  // en-CA = YYYY-MM-DD in local time
   const dayStr = new Date().toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
   document.getElementById('today-date-label').textContent = dayStr;
   setTodayQuoteAndFact();
@@ -1239,8 +1239,8 @@ function buildProgressSection(doneCount, total, doneList) {
 
   // Streak via localStorage — increments each day any care is done
   const key    = 'plant-streak';
-  const todayS = new Date().toISOString().slice(0, 10);
-  const yestS  = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  const todayS = new Date().toLocaleDateString('en-CA');
+  const yestS  = new Date(Date.now() - 86400000).toLocaleDateString('en-CA');
   const stored = JSON.parse(localStorage.getItem(key) || '{"date":"","count":0}');
   let streak   = stored.count;
   if (doneCount > 0 && stored.date !== todayS) {
@@ -2694,7 +2694,7 @@ function needsWater(p) {
   // Non-Naked Root: use Planta next water date
   const pd = getPlanta(p);
   if (pd && pd.nextWater) {
-    const today = new Date().toISOString().slice(0, 10);
+    const today = new Date().toLocaleDateString('en-CA');
     return pd.nextWater <= today;
   }
   return false;
@@ -2717,7 +2717,7 @@ function renderCard(p) {
   const pd = getPlanta(p);
   const healthBadge = pd && (pd.health === "sick" || pd.health === "bad")
     ? `<span class="tag health-${pd.health}">${pd.health === "sick" ? "⚠ Sick" : "🔴 Bad"}</span>` : "";
-  const today = new Date().toISOString().slice(0,10);
+  const today = new Date().toLocaleDateString('en-CA');
   const plantaLine = pd && pd.nextWater
     ? `<div class="planta-line">💧 Next water: <strong>${pd.nextWater}</strong>${pd.lastWater ? ` · last ${pd.lastWater}` : ""}</div>` : "";
   const repotLine = pd && pd.nextRepot
@@ -3670,7 +3670,7 @@ function getOutdoor(p) { return OUTDOOR_DATA[p.name] || null; }
 function needsWaterOutdoor(p) {
   const od = getOutdoor(p);
   if (!od || !od.nextWater) return false;
-  const today = new Date().toISOString().slice(0, 10);
+  const today = new Date().toLocaleDateString('en-CA');
   return od.nextWater <= today;
 }
 
@@ -3803,7 +3803,7 @@ function markGWatered(event, plantName) {
   const btn = event.currentTarget;
   const now = new Date();
   const timeStr = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  const dateStr = now.toISOString().slice(0, 10);
+  const dateStr = now.toLocaleDateString('en-CA');
   btn.textContent = "✓ Logged";
   btn.style.background = "#4caf50";
   btn.style.color = "#fff";
