@@ -1275,7 +1275,18 @@ function buildTodayTab() {
 
   const pendingTracked = [...houseTasks.overdue, ...houseTasks.dueToday]
     .filter(t => TRACKED_LABELS.has(t.label)).length;
-  buildProgressSection(doneToday.length, doneToday.length + pendingTracked, doneToday);
+
+  // Add custom reminders (air plant misting) to progress count
+  const dueCustom = getDueCustomReminders();
+  const customDone = dueCustom.filter(r => isCustomReminderDone(r.id));
+  const customPending = dueCustom.filter(r => !isCustomReminderDone(r.id));
+  for (const r of customDone) doneToday.push({ icon: r.icon, label: r.task, name: r.name });
+
+  buildProgressSection(
+    doneToday.length,
+    doneToday.length + pendingTracked + customPending.length,
+    doneToday
+  );
 
   populateNotePicker();
   renderNotesLog();
@@ -1284,6 +1295,7 @@ function buildTodayTab() {
 // Custom reminders not tracked by Planta (e.g. misting with system-wide off)
 const CUSTOM_REMINDERS = [
   {
+    id: "air-plant-mist",
     name: "Air Plant",
     task: "Mist",
     icon: "💦",
@@ -1294,12 +1306,28 @@ const CUSTOM_REMINDERS = [
   },
 ];
 
+function customReminderDoneKey(id) {
+  return `custom-done-${id}-${new Date().toLocaleDateString('en-CA')}`;
+}
+
+function isCustomReminderDone(id) {
+  return localStorage.getItem(customReminderDoneKey(id)) === '1';
+}
+
+function markCustomReminderDone(id) {
+  localStorage.setItem(customReminderDoneKey(id), '1');
+}
+
+function getDueCustomReminders() {
+  const dow = new Date().getDay();
+  return CUSTOM_REMINDERS.filter(r => r.daysOfWeek.includes(dow));
+}
+
 function renderCustomReminders() {
   const el = document.getElementById('today-custom-reminders');
   if (!el) return;
 
-  const dow = new Date().getDay(); // 0=Sun … 6=Sat
-  const due = CUSTOM_REMINDERS.filter(r => r.daysOfWeek.includes(dow));
+  const due = getDueCustomReminders();
   if (!due.length) { el.innerHTML = ''; return; }
 
   let html = `<div style="margin-bottom:1.5rem; padding:0.85rem 1rem; background:#eaf4fb; border-radius:10px; border:1px solid #b8d9ee;">
@@ -1307,9 +1335,14 @@ function renderCustomReminders() {
     <ul style="list-style:none; margin:0; padding:0;">`;
 
   for (const r of due) {
-    html += `<li style="display:flex; align-items:center; gap:0.5rem; padding:0.22rem 0; border-bottom:1px solid #d0e8f5; font-size:0.85rem;">
-      <span style="font-weight:600; color:#2d2d2d; flex:1;">${r.name} <span style="font-weight:400; color:#888; font-size:0.78rem;">· ${r.location}</span></span>
-      <span style="font-size:0.72rem; color:#555; font-style:italic;">${r.note}</span>
+    const done = isCustomReminderDone(r.id);
+    html += `<li style="display:flex; align-items:center; gap:0.6rem; padding:0.22rem 0; border-bottom:1px solid #d0e8f5; font-size:0.85rem;">
+      <span style="font-weight:600; color:${done ? '#aaa' : '#2d2d2d'}; flex:1; text-decoration:${done ? 'line-through' : 'none'};">${r.name} <span style="font-weight:400; color:#aaa; font-size:0.78rem;">· ${r.location}</span></span>
+      <span style="font-size:0.72rem; color:#888; font-style:italic;">${r.note}</span>
+      <button onclick="markCustomReminderDone('${r.id}'); buildTodayTab();"
+        style="font-size:0.7rem; padding:0.15rem 0.5rem; border-radius:4px; border:1px solid ${done ? '#ccc' : '#3a7fb5'}; background:${done ? '#f0f0f0' : '#3a7fb5'}; color:${done ? '#aaa' : 'white'}; cursor:pointer;">
+        ${done ? 'Done' : 'Mark done'}
+      </button>
     </li>`;
   }
 
