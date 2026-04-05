@@ -1261,15 +1261,21 @@ function buildTodayTab() {
   renderSection('today-garden',      gardenTasks);
   renderCustomReminders();
 
-  // Detect tasks completed today from lastWater / lastFertilize
+  // Progress tracker: indoor Water + Fertilize only (not repot, not mist, not outdoor)
+  const TRACKED_LABELS = new Set(['Water', 'Fertilize']);
+  const houseData = Object.fromEntries(
+    Object.entries(allData).filter(([name]) => !OUTDOOR_NAMES.has(name))
+  );
+
   const doneToday = [];
-  for (const [name, d] of Object.entries(allData)) {
+  for (const [name, d] of Object.entries(houseData)) {
     if (d.lastWater     === today) doneToday.push({ icon: '💧', label: 'Watered',    name });
     if (d.lastFertilize === today) doneToday.push({ icon: '🌿', label: 'Fertilized', name });
   }
-  const totalPending = houseTasks.overdue.length + houseTasks.dueToday.length
-                     + gardenTasks.overdue.length + gardenTasks.dueToday.length;
-  buildProgressSection(doneToday.length, doneToday.length + totalPending, doneToday);
+
+  const pendingTracked = [...houseTasks.overdue, ...houseTasks.dueToday]
+    .filter(t => TRACKED_LABELS.has(t.label)).length;
+  buildProgressSection(doneToday.length, doneToday.length + pendingTracked, doneToday);
 
   populateNotePicker();
   renderNotesLog();
