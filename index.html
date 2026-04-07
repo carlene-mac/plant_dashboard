@@ -470,14 +470,14 @@
   <button class="tab-btn active" onclick="switchTab('h', this)">🏠 Houseplants</button>
   <button class="tab-btn"        onclick="switchTab('g', this)">🌳 Garden</button>
   <button class="tab-btn"        onclick="switchTab('gardyn', this)">🌱 Gardyn</button>
-  <div class="tab-sync">🌿 Planta synced 2026-04-06</div>
+  <div class="tab-sync">🌿 Planta synced 2026-04-07</div>
 </div>
 
 <!-- ── HOUSEPLANT TAB ────────────────────────────────────────── -->
 <div id="tab-h" class="tab-panel active">
 <header>
   <h1>Houseplant Dashboard</h1>
-  <span id="updated-date">Updated 2026-04-06 &nbsp;·&nbsp; 🌿 Planta synced 2026-04-06</span>
+  <span id="updated-date">Updated 2026-04-07 &nbsp;·&nbsp; 🌿 Planta synced 2026-04-07</span>
 </header>
 
 <div class="stats">
@@ -756,6 +756,9 @@
 
     </div>
 
+    <!-- Incoming orders / arrivals -->
+    <div id="today-orders"></div>
+
     <!-- Notes section -->
     <div style="margin-top:2.5rem; border-top:1px solid #ddd8ce; padding-top:1.5rem;">
       <h3 style="font-size:1rem; font-weight:700; color:#2d5a27; margin:0 0 1rem;">📝 Plant Notes</h3>
@@ -788,7 +791,7 @@
 <div id="tab-g" class="tab-panel">
 <header>
   <h1>🌿 Gardening Dashboard</h1>
-  <span id="g-updated-date">Updated 2026-04-06 &nbsp;·&nbsp; 🌿 Planta synced 2026-04-06</span>
+  <span id="g-updated-date">Updated 2026-04-07 &nbsp;·&nbsp; 🌿 Planta synced 2026-04-07</span>
 </header>
 
 <div class="container">
@@ -844,6 +847,11 @@
   <tbody id="cal-tbody"></tbody>
 </table>
 
+<div class="section-title">📦 Garden Orders & Sourcing</div>
+<div id="garden-orders-section">
+  <p style="font-size:0.82rem;color:#888;">No garden orders logged yet.</p>
+</div>
+
 </div><!-- /container -->
 </div>
 
@@ -853,7 +861,7 @@
 
   <div class="gd-header">
     <h1>🌱 Gardyn Dashboard</h1>
-    <span style="font-size:0.8rem;color:#888">Updated 2026-04-06</span>
+    <span style="font-size:0.8rem;color:#888">Updated 2026-04-07</span>
   </div>
 
   <div class="gd-stats">
@@ -985,6 +993,11 @@
 
   <div class="gd-section">🌱 Pod Wishlist — What to Plant in Empty Slots</div>
   <div id="gyn-wishlist"></div>
+
+  <div class="gd-section">📦 Gardyn Supplies & Orders</div>
+  <div id="gardyn-orders-section">
+    <p style="font-size:0.82rem;color:#888;">No Gardyn orders logged yet.</p>
+  </div>
 
 </div>
 </div>
@@ -1260,6 +1273,7 @@ function buildTodayTab() {
   renderSection('today-houseplants', houseTasks);
   renderSection('today-garden',      gardenTasks);
   renderCustomReminders();
+  renderTodayOrders();
 
   // Progress tracker: indoor Water + Fertilize only (not repot, not mist, not outdoor)
   const TRACKED_LABELS = new Set(['Water', 'Fertilize']);
@@ -1290,6 +1304,80 @@ function buildTodayTab() {
 
   populateNotePicker();
   renderNotesLog();
+}
+
+// ── Today tab: incoming orders / arrivals ─────────────────────
+function renderTodayOrders() {
+  const el = document.getElementById('today-orders');
+  if (!el) return;
+
+  const orders = typeof PLANT_ORDERS !== 'undefined' ? PLANT_ORDERS : [];
+  if (!orders.length) { el.innerHTML = ''; return; }
+
+  const today = new Date().toLocaleDateString('en-CA');
+  // yesterday = 24h window for "new"
+  const yesterday = new Date(Date.now() - 86400000).toLocaleDateString('en-CA');
+
+  const arrivingToday = orders.filter(o => o.status === 'arriving-today' || o.eta === today);
+  const recentNew     = orders.filter(o =>
+    (o.status === 'delivered' || o.status === 'arrived-unmatched') &&
+    o.emailDate >= yesterday
+  );
+  const inTransit = orders.filter(o =>
+    o.status === 'ordered' || o.status === 'shipped'
+  );
+
+  if (!arrivingToday.length && !recentNew.length && !inTransit.length) {
+    el.innerHTML = '';
+    return;
+  }
+
+  const CAT_ICON = { houseplant: '🏠', garden: '🌳', gardyn: '💧' };
+  const STATUS_COLOR = {
+    'arriving-today':   { bg: '#fff3cd', border: '#f59e0b', label: '🚚 Arriving Today', textColor: '#92400e' },
+    'delivered':        { bg: '#d1fae5', border: '#10b981', label: '✅ Delivered',       textColor: '#065f46' },
+    'arrived-unmatched':{ bg: '#fef3c7', border: '#f59e0b', label: '📦 Arrived — needs matching', textColor: '#92400e' },
+    'shipped':          { bg: '#eff6ff', border: '#3b82f6', label: '📦 Shipped',          textColor: '#1e40af' },
+    'ordered':          { bg: '#f5f3ff', border: '#8b5cf6', label: '🛒 Ordered',           textColor: '#5b21b6' },
+  };
+
+  function orderCard(o) {
+    const s = STATUS_COLOR[o.status] || STATUS_COLOR['ordered'];
+    const catIcon = CAT_ICON[o.category] || '🌿';
+    const etaStr = o.eta ? ` · ETA ${o.eta}` : '';
+    const costStr = o.cost ? ` · ${o.cost}` : '';
+    const unmatched = o.status === 'arrived-unmatched'
+      ? `<div style="font-size:0.72rem;color:#b45309;margin-top:0.3rem;">⚠ Not yet matched to a plant card — add to Planta and sourcing log</div>`
+      : '';
+    return `<div style="background:${s.bg};border:1.5px solid ${s.border};border-radius:10px;padding:0.7rem 1rem;margin-bottom:0.5rem;">
+      <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;">
+        <span style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:${s.textColor};">${s.label}</span>
+        <span style="font-size:0.65rem;color:#999;margin-left:auto;">${catIcon} ${o.category || ''}${etaStr}${costStr}</span>
+      </div>
+      <div style="font-size:0.85rem;font-weight:600;color:#1a1a1a;">${o.items || o.subject || '—'}</div>
+      <div style="font-size:0.72rem;color:#666;margin-top:0.15rem;">${o.source}${o.orderNum ? ' · #' + o.orderNum : ''}</div>
+      ${unmatched}
+    </div>`;
+  }
+
+  let html = `<div style="margin-top:2rem;border-top:1px solid #ddd8ce;padding-top:1.5rem;margin-bottom:1.5rem;">
+    <h3 style="font-size:1rem;font-weight:700;color:#2d5a27;margin:0 0 0.85rem;">📦 Incoming & Recent Orders</h3>`;
+
+  if (arrivingToday.length) {
+    html += `<div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#92400e;margin-bottom:0.4rem;">Arriving Today</div>`;
+    arrivingToday.forEach(o => html += orderCard(o));
+  }
+  if (recentNew.length) {
+    html += `<div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#065f46;margin:0.75rem 0 0.4rem;">New in Past 24h</div>`;
+    recentNew.forEach(o => html += orderCard(o));
+  }
+  if (inTransit.length) {
+    html += `<div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#4b5563;margin:0.75rem 0 0.4rem;">In Transit</div>`;
+    inTransit.forEach(o => html += orderCard(o));
+  }
+
+  html += '</div>';
+  el.innerHTML = html;
 }
 
 // Custom reminders not tracked by Planta (e.g. misting with system-wide off)
@@ -2485,6 +2573,16 @@ const EXPENSES = [
 ];
 
 // ─────────────────────────────────────────────
+// PLANT ORDERS — auto-patched by planta_dashboard_sync.py
+// Category: "houseplant" | "garden" | "gardyn"
+// Status: "ordered" | "shipped" | "arriving-today" | "delivered" | "arrived-unmatched"
+// ─────────────────────────────────────────────
+// PLANT_ORDERS_START
+const PLANT_ORDERS = [
+];
+// PLANT_ORDERS_END
+
+// ─────────────────────────────────────────────
 // POT TYPES — display alongside soil info
 // ─────────────────────────────────────────────
 const POT_TYPES = {
@@ -2729,12 +2827,12 @@ function getDivaInfo(p) {
 function isDiva(p) { return !!getDivaInfo(p); }
 
 // ─────────────────────────────────────────────
-// PLANTA SYNC DATA — last synced 2026-04-06
+// PLANTA SYNC DATA — last synced 2026-04-07
 // ─────────────────────────────────────────────
-const PLANTA_SYNC_DATE = "2026-04-06";
+const PLANTA_SYNC_DATE = "2026-04-07";
 const PLANTA_DATA = {
   "Air Plant"                                 : { nextWater: "2026-04-07", lastWater: "2026-03-21", nextMist: null, nextFertilize: "2026-04-16", lastFertilize: "2026-03-29", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/nW0gwJOgQsie0TSCo5X5aQ.webp", potType: "none", potSize: null, soil: null },
-  "Angel Wings — Freida Hemple (Caladium)"    : { nextWater: "2026-04-06", lastWater: "2026-03-27", nextMist: null, nextFertilize: "2026-04-16", lastFertilize: "2026-03-18", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/w0o5qL93TE2fuKuDjzik4w.webp", potType: "potPlastic", potSize: "12.7", soil: "pottingSoilAndDrainage" },
+  "Angel Wings — Freida Hemple (Caladium)"    : { nextWater: "2026-04-15", lastWater: "2026-04-07", nextMist: null, nextFertilize: "2026-04-24", lastFertilize: "2026-03-18", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/w0o5qL93TE2fuKuDjzik4w.webp", potType: "potPlastic", potSize: "12.7", soil: "pottingSoilAndDrainage" },
   "Black Rose Zwartkop (Aeonium)"             : { nextWater: "2026-04-14", lastWater: "2026-04-03", nextMist: null, nextFertilize: "2026-04-26", lastFertilize: "2026-03-20", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/fNGEohOeRA2Z4dh_DkbcBw.webp", potType: "potOriginalPlastic", potSize: "5", soil: "cactusPalmCitrusSoil" },
   "Cape Sundew"                               : { nextWater: "2026-04-09", lastWater: "2026-04-05", nextMist: null, nextFertilize: null, lastFertilize: "2026-03-14", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/HFtDlf0-S5Ckf7OrvWgz2w.webp", potType: "potPlastic", potSize: "12", soil: "carnivoresPlantMix" },
   "Closed Tropical Terrarium"                 : { nextWater: "2026-04-20", lastWater: "2026-03-21", nextMist: null, nextFertilize: null, lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/t7JwZ-FqQYa_xeFwp3sL0g.webp", potType: "potOriginalPlastic", potSize: "25.4", soil: "tropicalSoil" },
@@ -2749,7 +2847,7 @@ const PLANTA_DATA = {
   "Gold Dust Dracaena"                        : { nextWater: "2026-04-10", lastWater: "2026-03-17", nextMist: null, nextFertilize: "2026-04-22", lastFertilize: "2026-03-29", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/Ryx4678cQ92aymPrTnj3Yw.webp", potType: "potPlastic", potSize: "20.32", soil: "allPurposePottingMix" },
   "Golden Pothos"                             : { nextWater: "2026-04-10", lastWater: "2026-03-17", nextMist: null, nextFertilize: "2026-04-22", lastFertilize: "2026-03-29", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/YhbY_w7-QHOBMJZZeyKR6A.webp", potType: "potPlastic", potSize: "35.56", soil: "allPurposePottingMix" },
   "Guzmania"                                  : { nextWater: "2026-04-15", lastWater: "2026-04-05", nextMist: null, nextFertilize: "2026-04-10", lastFertilize: "2026-03-31", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/ekXjRcS7QgyUSLHD0eFaBQ.webp", potType: "potOriginalPlastic", potSize: "10.16", soil: "allPurposePottingMix" },
-  "Heart Leaf Philodendron"                   : { nextWater: "2026-04-06", lastWater: "2026-03-17", nextMist: null, nextFertilize: "2026-04-14", lastFertilize: "2026-03-29", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/hpfBY2mlQKG7YV_NhgEx5A.webp", potType: "potPlastic", potSize: "20.32", soil: "allPurposePottingMix" },
+  "Heart Leaf Philodendron"                   : { nextWater: "2026-04-22", lastWater: "2026-04-07", nextMist: null, nextFertilize: "2026-04-14", lastFertilize: "2026-03-29", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/hpfBY2mlQKG7YV_NhgEx5A.webp", potType: "potPlastic", potSize: "20.32", soil: "allPurposePottingMix" },
   "Hoya compacta (Rope Plant)"                : { nextWater: "2026-04-15", lastWater: "2026-03-29", nextMist: null, nextFertilize: "2026-05-02", lastFertilize: null, nextRepot: "2027-03-07", health: null, imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/Tu0ls5cwRRqWjI-ytL1nVQ.webp", potType: "potPlastic", potSize: "20.32", soil: "pottingSoilAndDrainage" },
   "Juniper Bonsai"                            : { nextWater: "2026-04-18", lastWater: "2026-04-04", nextMist: null, nextFertilize: "2026-05-25", lastFertilize: "2026-02-24", nextRepot: "2026-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/public/plant_database/UX9Pvrn5xFybx0ebTOP2/kdld2nbxtyhka76th1og.webp", potType: "potOriginalPlastic", potSize: "10.16", soil: "pottingSoilAndDrainage" },
   "Lightning Jewel Orchid"                    : { nextWater: "2026-04-07", lastWater: "2026-04-01", nextMist: null, nextFertilize: "2026-04-06", lastFertilize: "2026-03-26", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/32HaMmx4SZyXTnSXCnPqtA.webp", potType: "potOriginalPlastic", potSize: "7.619999999999999", soil: "sphagnumMoss" },
@@ -2758,7 +2856,7 @@ const PLANTA_DATA = {
   "Moth Orchid"                               : { nextWater: "2026-04-06", lastWater: null, nextMist: null, nextFertilize: "2026-04-17", lastFertilize: null, nextRepot: "2028-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/JuL463YaQDO_a4e3DFkC2g.webp", potType: "potPlastic", potSize: "15", soil: "orchidPottingMix" },
   "Moth Orchid (Trader Joe's)"                : { nextWater: "2026-04-18", lastWater: "2026-04-04", nextMist: null, nextFertilize: "2026-04-11", lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/94INxaQfT9S0sLOYiUM3Iw.webp", potType: "potPorcelain", potSize: "8", soil: "orchidPottingMix" },
   "Moth Orchid (Åkerbar #1)"                  : { nextWater: "2026-04-06", lastWater: "2026-03-28", nextMist: null, nextFertilize: "2026-06-17", lastFertilize: "2026-03-20", nextRepot: "2028-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/lM7rbPPFQjCQpsU6BZLpYA.webp", potType: "potPlastic", potSize: "12", soil: "semiHydro" },
-  "Moth Orchid (Åkerbar #2)"                  : { nextWater: "2026-04-06", lastWater: "2026-03-28", nextMist: null, nextFertilize: "2026-06-17", lastFertilize: "2026-03-20", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/ufNO6CPrQ5qJhCNNKMUj0w.webp", potType: "potPlastic", potSize: "10", soil: "orchidPottingMix" },
+  "Moth Orchid (Åkerbar #2)"                  : { nextWater: "2026-04-13", lastWater: "2026-04-07", nextMist: null, nextFertilize: "2026-06-17", lastFertilize: "2026-03-20", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/ufNO6CPrQ5qJhCNNKMUj0w.webp", potType: "potPlastic", potSize: "10", soil: "orchidPottingMix" },
   "Mount Fuji Serissa Bonsai"                 : { nextWater: "2026-04-09", lastWater: "2026-04-06", nextMist: null, nextFertilize: "2026-06-15", lastFertilize: "2026-03-08", nextRepot: "2026-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/_37Tm_DHSaqtTrV3loqPhw.webp", potType: "potOriginalPlastic", potSize: null, soil: null },
   "Norfolk Pine"                              : { nextWater: "2026-04-13", lastWater: "2026-04-06", nextMist: null, nextFertilize: "2026-07-04", lastFertilize: "2026-04-05", nextRepot: "2026-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/wDAKql6ARmO19oLO-KE2IQ.webp", potType: "potOriginalPlastic", potSize: null, soil: null },
   "Oncidium Heaven Scent"                     : { nextWater: "2026-04-25", lastWater: "2026-04-05", nextMist: null, nextFertilize: "2026-04-15", lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/GLVgKLBpR3iEj45XbcHDJA.webp", potType: "potPlastic", potSize: "20", soil: "orchidPottingMix" },
@@ -2774,9 +2872,9 @@ const PLANTA_DATA = {
   "Silver Nerve Plant"                        : { nextWater: "2026-04-08", lastWater: "2026-04-06", nextMist: null, nextFertilize: "2026-04-29", lastFertilize: "2026-03-29", nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/YjjL_gZSTgeCLopQKYA4oA.webp", potType: "potPlastic", potSize: "12.7", soil: "pottingSoilAndDrainage" },
   "Spider Orchid (Brassia)"                   : { nextWater: "2026-04-11", lastWater: "2026-04-04", nextMist: null, nextFertilize: "2026-04-18", lastFertilize: null, nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/YOwfXUESTdeBhicK5mN2lw.webp", potType: "none", potSize: "15", soil: "epiphyticSoil" },
   "String of Turtles #1"                      : { nextWater: "2026-04-07", lastWater: "2026-04-02", nextMist: null, nextFertilize: "2026-04-12", lastFertilize: "2026-03-27", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/QNGBqhiYQR6_aJxg01yGtQ.webp", potType: "potOriginalPlastic", potSize: "10", soil: "allPurposePottingMix" },
-  "Tillandsia abdita"                         : { nextWater: "2026-04-06", lastWater: "2026-03-21", nextMist: null, nextFertilize: "2026-04-14", lastFertilize: "2026-03-29", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/YGoSiLo8TdaPPgYqmaY6Og.webp", potType: "none", potSize: null, soil: null },
-  "Tillandsia brachycaulos"                   : { nextWater: "2026-04-06", lastWater: "2026-03-21", nextMist: null, nextFertilize: "2026-04-14", lastFertilize: "2026-03-29", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/_23lp1oPQKKzj1LGYSbnRQ.webp", potType: "none", potSize: null, soil: null },
-  "Trumpet Pitcher"                           : { nextWater: "2026-04-06", lastWater: "2026-04-05", nextMist: null, nextFertilize: null, lastFertilize: null, nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/iJHWko4jRY-a-PRVYkLhtg.webp", potType: "potOriginalPlastic", potSize: "7", soil: "carnivoresPlantMix" },
+  "Tillandsia abdita"                         : { nextWater: "2026-04-24", lastWater: "2026-04-07", nextMist: null, nextFertilize: "2026-04-15", lastFertilize: "2026-03-29", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/YGoSiLo8TdaPPgYqmaY6Og.webp", potType: "none", potSize: null, soil: null },
+  "Tillandsia brachycaulos"                   : { nextWater: "2026-04-24", lastWater: "2026-04-07", nextMist: null, nextFertilize: "2026-04-15", lastFertilize: "2026-03-29", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/_23lp1oPQKKzj1LGYSbnRQ.webp", potType: "none", potSize: null, soil: null },
+  "Trumpet Pitcher"                           : { nextWater: "2026-04-07", lastWater: "2026-04-07", nextMist: null, nextFertilize: null, lastFertilize: null, nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/iJHWko4jRY-a-PRVYkLhtg.webp", potType: "potOriginalPlastic", potSize: "7", soil: "carnivoresPlantMix" },
   "Variegated String of Hearts"               : { nextWater: "2026-04-13", lastWater: "2026-04-04", nextMist: null, nextFertilize: "2026-05-04", lastFertilize: null, nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/RUaYOCwoSgeKVexwnau3fg.webp", potType: "potPlastic", potSize: null, soil: null },
   "Venus Fly Trap #1 (dying)"                 : { nextWater: "2026-04-07", lastWater: "2026-04-04", nextMist: null, nextFertilize: null, lastFertilize: null, nextRepot: "2027-03-07", health: "bad", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/3bAZK4NBRCy5-vnewlAT7w.webp", potType: "potOriginalPlastic", potSize: null, soil: null },
   "Venus Fly Trap #2"                         : { nextWater: "2026-04-07", lastWater: "2026-04-03", nextMist: null, nextFertilize: null, lastFertilize: null, nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/RuXz4M9vR-mmR8IYioUyPg.webp", potType: "potPlastic", potSize: "12", soil: "carnivoresPlantMix" },
@@ -3005,9 +3103,21 @@ function renderHouseplants() {
   document.getElementById("watch-tbody").innerHTML = WATCH_LIST.map(w =>
     `<tr><td>${w.plant}</td><td>${w.issue}</td><td>${w.since}</td></tr>`).join("");
 
-  // Sourcing
-  document.getElementById("sourcing-tbody").innerHTML = SOURCING.map(s =>
-    `<tr><td>${s.date}</td><td>${s.source}</td><td>${s.order}</td><td>${s.plants}</td></tr>`).join("");
+  // Sourcing (static log + email-detected orders)
+  const hOrders = (typeof PLANT_ORDERS !== 'undefined' ? PLANT_ORDERS : [])
+    .filter(o => o.category === 'houseplant');
+  const STATUS_LABEL_H = {
+    'arriving-today':'🚚 Arriving Today','delivered':'✅ Delivered',
+    'arrived-unmatched':'📦 Arrived — needs matching',
+    'shipped':'📦 Shipped','ordered':'🛒 Ordered',
+  };
+  const orderRows = hOrders.map(o =>
+    `<tr style="background:#f0f7ff;"><td>${o.emailDate||'—'}</td><td>${o.source||'—'}</td><td>${o.orderNum||'—'}</td><td>${o.items||o.subject||'—'} <span style="font-size:0.7rem;color:#3b82f6;">${STATUS_LABEL_H[o.status]||''}</span></td></tr>`
+  ).join("");
+  document.getElementById("sourcing-tbody").innerHTML =
+    SOURCING.map(s =>
+      `<tr><td>${s.date}</td><td>${s.source}</td><td>${s.order}</td><td>${s.plants}</td></tr>`
+    ).join("") + orderRows;
 
   // Expenses
   document.getElementById("expense-tbody").innerHTML = EXPENSES.map((e, i) =>
@@ -3773,9 +3883,9 @@ function setTodayQuoteAndFact() {
 }
 
 // ─────────────────────────────────────────────
-// OUTDOOR SYNC DATA — last synced 2026-04-06
+// OUTDOOR SYNC DATA — last synced 2026-04-07
 // ─────────────────────────────────────────────
-const OUTDOOR_SYNC_DATE = "2026-04-06";
+const OUTDOOR_SYNC_DATE = "2026-04-07";
 const OUTDOOR_DATA = {
   "Caucasian Stonecrop"                       : { nextWater: null, lastWater: "2026-04-02", nextMist: null, nextFertilize: "2026-04-21", lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/Cu90Iv9yTcygBHMj5mrpwg.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
   "Common Snowdrop"                           : { nextWater: "2026-04-08", lastWater: "2026-04-02", nextMist: null, nextFertilize: "2027-03-15", lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/j3q5Z8c6Qseeju4kRv1dGQ.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
@@ -3785,7 +3895,7 @@ const OUTDOOR_DATA = {
   "Dutch Hyacinth (Frontyard)"                : { nextWater: "2026-04-10", lastWater: "2026-04-02", nextMist: null, nextFertilize: "2026-04-01", lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/nb1V6qdvTOOodjZmyrRv1Q.webp", potType: "ground", potSize: null, soil: null },
   "Garden Tulip"                              : { nextWater: "2026-04-09", lastWater: "2026-04-02", nextMist: null, nextFertilize: null, lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/Jt8cMoiUSE-Q8PzLh3k2pw.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
   "Lenten Rose"                               : { nextWater: null, lastWater: "2026-04-02", nextMist: null, nextFertilize: "2027-03-15", lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/ExNqHFAsRkuir8C3lAGbtw.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
-  "Peony"                                     : { nextWater: "2026-04-06", lastWater: "2026-04-02", nextMist: null, nextFertilize: "2027-03-15", lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/tEN8UfMQRAK8XvttYmCp5g.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
+  "Peony"                                     : { nextWater: "2026-04-11", lastWater: "2026-04-02", nextMist: null, nextFertilize: "2027-03-15", lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/tEN8UfMQRAK8XvttYmCp5g.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
   "Siberian Squill"                           : { nextWater: null, lastWater: "2026-04-02", nextMist: null, nextFertilize: "2027-03-15", lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/BtpgQybBRtGl_t8-_wgcPg.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
   "Wild Hydrangea"                            : { nextWater: null, lastWater: "2026-04-02", nextMist: null, nextFertilize: "2027-03-15", lastFertilize: null, nextRepot: null, health: "bad", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/z43yhoCqSl25AvHhftxYqA.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
 };
@@ -4006,6 +4116,30 @@ function renderGarden() {
   document.getElementById("cal-tbody").innerHTML = GARDEN_CALENDAR.map(r =>
     `<tr><td style="white-space:nowrap;font-weight:600">${r.when}</td><td><em>${r.plant}</em></td><td>${r.task}</td></tr>`
   ).join("");
+
+  // Garden orders sourcing section
+  const orders = typeof PLANT_ORDERS !== 'undefined' ? PLANT_ORDERS : [];
+  const gardenOrders = orders.filter(o => o.category === 'garden');
+  const el = document.getElementById('garden-orders-section');
+  if (el) {
+    if (!gardenOrders.length) {
+      el.innerHTML = '<p style="font-size:0.82rem;color:#888;">No garden orders logged yet.</p>';
+    } else {
+      const STATUS_LABEL = {
+        'arriving-today': '🚚 Arriving Today', 'delivered': '✅ Delivered',
+        'arrived-unmatched': '📦 Arrived — needs matching',
+        'shipped': '📦 Shipped', 'ordered': '🛒 Ordered',
+      };
+      el.innerHTML = `<table class="data-table sourcing-table" style="margin-bottom:0.5rem;">
+        <thead><tr><th>Date</th><th>Source</th><th>Order #</th><th>Items</th><th>Cost</th><th>Status</th><th>ETA</th></tr></thead>
+        <tbody>${gardenOrders.map(o => `<tr>
+          <td>${o.emailDate||'—'}</td><td>${o.source||'—'}</td><td>${o.orderNum||'—'}</td>
+          <td>${o.items||o.subject||'—'}</td><td>${o.cost||'—'}</td>
+          <td>${STATUS_LABEL[o.status]||o.status}</td><td>${o.eta||'—'}</td>
+        </tr>`).join('')}</tbody>
+      </table>`;
+    }
+  }
 }
 
 
@@ -4606,6 +4740,30 @@ function renderGardynWishlist() {
   }).join("")}</div>`;
 }
 
+function renderGardynOrders() {
+  const el = document.getElementById('gardyn-orders-section');
+  if (!el) return;
+  const orders = typeof PLANT_ORDERS !== 'undefined' ? PLANT_ORDERS : [];
+  const gOrders = orders.filter(o => o.category === 'gardyn');
+  if (!gOrders.length) {
+    el.innerHTML = '<p style="font-size:0.82rem;color:#888;">No Gardyn orders logged yet.</p>';
+    return;
+  }
+  const STATUS_LABEL = {
+    'arriving-today':'🚚 Arriving Today','delivered':'✅ Delivered',
+    'arrived-unmatched':'📦 Arrived — needs matching',
+    'shipped':'📦 Shipped','ordered':'🛒 Ordered',
+  };
+  el.innerHTML = `<table class="data-table" style="margin-bottom:0.5rem;font-size:0.82rem;">
+    <thead><tr><th>Date</th><th>Source</th><th>Order #</th><th>Items</th><th>Cost</th><th>Status</th><th>ETA</th></tr></thead>
+    <tbody>${gOrders.map(o => `<tr>
+      <td>${o.emailDate||'—'}</td><td>${o.source||'—'}</td><td>${o.orderNum||'—'}</td>
+      <td>${o.items||o.subject||'—'}</td><td>${o.cost||'—'}</td>
+      <td>${STATUS_LABEL[o.status]||o.status}</td><td>${o.eta||'—'}</td>
+    </tr>`).join('')}</tbody>
+  </table>`;
+}
+
 function renderGardyn() {
   buildAllPodsMap();
   renderGardynSalad();
@@ -4619,6 +4777,7 @@ function renderGardyn() {
   const duds = document.getElementById("gyn-duds");
   if (duds) duds.innerHTML = SKYLAR_DUDS.map(d => `<span class="dud-pill">✕ ${d}</span>`).join("");
   renderGardynWishlist();
+  renderGardynOrders();
 }
 
 renderGardyn();
