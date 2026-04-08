@@ -1583,11 +1583,12 @@ const PLANTS = [
     toxic: false,
     status: "active",
     pottedDate: "2026-03-26",
-    reservoir: "refilled 2026-04-01",
+    reservoir: "watered 2026-04-07 (still had water)",
     reservoirEmptied: null,
     dryPeriod: "short",
-    notes: "Drinks fast — check every 2–3 days",
+    notes: "Drinks fast — check every 2–3 days. Watered 2026-04-07; reservoir still had water.",
     watchList: true,
+    lastWatered: "2026-04-07",
   },
   {
     name: "Moth Orchid",
@@ -1672,10 +1673,10 @@ const PLANTS = [
     toxicNote: "Toxic to pets",
     status: "active",
     pottedDate: "2026-03-29",
-    reservoir: "empty",
+    reservoir: "empty — not watered 2026-04-07",
     reservoirEmptied: "2026-04-01",
     dryPeriod: "short",
-    notes: "",
+    notes: "Reservoir empty 2026-04-07 but plant not watered — sick, monitoring before adding water.",
   },
   {
     name: "Angel Wings — Freida Hemple (Caladium)",
@@ -1741,10 +1742,11 @@ const PLANTS = [
     toxic: false,
     status: "active",
     pottedDate: "2026-03-29",
-    reservoir: "empty",
-    reservoirEmptied: "2026-04-01",
+    reservoir: "watered 2026-04-07 (was dry)",
+    reservoirEmptied: null,
     dryPeriod: "short",
-    notes: "",
+    notes: "Reservoir was dry on 2026-04-07 check; watered.",
+    lastWatered: "2026-04-07",
   },
   {
     name: "Silver Inch Plant (purple)",
@@ -1958,7 +1960,7 @@ const PLANTS = [
     pottedDate: null,
     reservoir: null,
     dryPeriod: "na",
-    notes: "⚠ OUTDOOR BONSAI — should go outside spring through fall. Struggles long-term indoors. Needs cold dormancy in winter. Needs maximum direct sun. Move outside as soon as temps allow.",
+    notes: "NE-facing window (kitchen). ⚠ OUTDOOR BONSAI — should go outside spring through fall. Struggles long-term indoors. Needs cold dormancy in winter. Needs maximum direct sun. Move outside as soon as temps allow.",
     watchList: false,
   },
   {
@@ -1975,7 +1977,7 @@ const PLANTS = [
     pottedDate: null,
     reservoir: null,
     dryPeriod: "na",
-    notes: "Drops leaves with any change — drafts, temperature, relocation. Keep consistently moist, never dry. High humidity preferred. White flowers when happy. Very sensitive.",
+    notes: "NE-facing window (kitchen). Drops leaves with any change — drafts, temperature, relocation. Keep consistently moist, never dry. High humidity preferred. White flowers when happy. Very sensitive.",
     watchList: false,
   },
   {
@@ -1993,7 +1995,7 @@ const PLANTS = [
     pottedDate: null,
     reservoir: null,
     dryPeriod: "na",
-    notes: "Not a true pine — tropical. Lower branches die if too dry or too dark; don't cut them, they won't regrow. Keep away from cold drafts.",
+    notes: "NE-facing window (kitchen). Not a true pine — tropical. Lower branches die if too dry or too dark; don't cut them, they won't regrow. Keep away from cold drafts.",
   },
   {
     name: "Zebra Plant",
@@ -2010,7 +2012,7 @@ const PLANTS = [
     pottedDate: null,
     reservoir: null,
     dryPeriod: "na",
-    notes: "Aphelandra squarrosa. Wilts dramatically when thirsty — don't let it get there. Very difficult to rebloom indoors. High humidity critical.",
+    notes: "West-facing window (kitchen). Aphelandra squarrosa. Wilts dramatically when thirsty — don't let it get there. Very difficult to rebloom indoors. High humidity critical.",
     watchList: false,
   },
   {
@@ -2027,7 +2029,7 @@ const PLANTS = [
     pottedDate: null,
     reservoir: null,
     dryPeriod: "na",
-    notes: "Very tolerant. One of the best low-light palms. Brown tips = low humidity or fluoride in water — use filtered.",
+    notes: "West-facing window (kitchen). Very tolerant. One of the best low-light palms. Brown tips = low humidity or fluoride in water — use filtered.",
   },
   {
     name: "Gold Dust Dracaena",
@@ -2044,7 +2046,7 @@ const PLANTS = [
     pottedDate: null,
     reservoir: null,
     dryPeriod: "na",
-    notes: "Sensitive to fluoride — use filtered or distilled water. Brown tips = fluoride or salt buildup. Flush soil occasionally.",
+    notes: "West-facing window (kitchen). Sensitive to fluoride — use filtered or distilled water. Brown tips = fluoride or salt buildup. Flush soil occasionally.",
   },
   {
     name: "False Shamrock (Oxalis)",
@@ -2061,7 +2063,7 @@ const PLANTS = [
     pottedDate: null,
     reservoir: null,
     dryPeriod: "na",
-    notes: "Watered + fertilized 2026-03-31. Closes leaves at night and when dark — normal. Goes through periodic dormancy (all leaves die back) — normal, reduce water and wait.",
+    notes: "West-facing window (kitchen). Watered + fertilized 2026-03-31. Closes leaves at night and when dark — normal. Goes through periodic dormancy (all leaves die back) — normal, reduce water and wait.",
     lastWatered: "2026-03-31",
   },
   {
@@ -2079,7 +2081,7 @@ const PLANTS = [
     pottedDate: null,
     reservoir: null,
     dryPeriod: "na",
-    notes: "From Trader Joe's — purchased 2026-03-30. Succulent rules. Let dry fully between waterings. Likely in nursery soil — consider repotting.",
+    notes: "West-facing window (kitchen). From Trader Joe's — purchased 2026-03-30. Succulent rules. Let dry fully between waterings. Likely in nursery soil — consider repotting.",
     source: "Trader Joe's",
   },
   {
@@ -2096,7 +2098,7 @@ const PLANTS = [
     pottedDate: null,
     reservoir: null,
     dryPeriod: "na",
-    notes: "Acanthocereus tetragonus. Very slow growing. Rarely flowers indoors. Needs maximum direct sun. Water sparingly in winter.",
+    notes: "West-facing window (kitchen). Acanthocereus tetragonus. Very slow growing. Rarely flowers indoors. Needs maximum direct sun. Water sparingly in winter.",
   },
 
   // ── SUNROOM (non-Naked Root) ──
@@ -2209,8 +2211,8 @@ const PLANTS = [
   },
   {
     name: "Closed Tropical Terrarium",
-    location: "Sunroom",
-    houseSpot: "Sunroom",
+    location: "Living Room",
+    houseSpot: "Living Room",
     price: "—",
     soil: "Layered: drainage (pebbles) + activated charcoal + substrate mix",
     light: "bright-indirect",
@@ -2222,7 +2224,7 @@ const PLANTS = [
     reservoir: null,
     reservoirEmptied: null,
     dryPeriod: "na",
-    notes: "Self-sustaining closed ecosystem — rarely needs watering. If condensation disappears from glass, add a small amount of distilled water. No direct sun — overheats. Contents TBD.",
+    notes: "Moved from Sunroom to Living Room 2026-04-07 — NE-facing window (part sun, part shade). Self-sustaining closed ecosystem — rarely needs watering. If condensation disappears from glass, add a small amount of distilled water. No direct sun — overheats.",
   },
 
   // ── ÅKERBAR GREENHOUSE ──
@@ -2357,7 +2359,7 @@ const PLANTS = [
     reservoir: null,
     reservoirEmptied: null,
     dryPeriod: "na",
-    notes: "Bonsai-style Ficus microcarpa. Hates being moved — pick a spot and leave it. Drops leaves if disturbed or cold-drafted.",
+    notes: "West-facing window (kitchen). Bonsai-style Ficus microcarpa. Hates being moved — pick a spot and leave it. Drops leaves if disturbed or cold-drafted.",
     lastWatered: "2026-04-01",
   },
 
@@ -2545,7 +2547,7 @@ const PLANTS = [
     reservoir: null,
     reservoirEmptied: null,
     dryPeriod: "na",
-    notes: "On moss pole. Very forgiving. Will trail or climb — redirect vines to pole as it grows.",
+    notes: "NE-facing window (part sun, part shade). Terrarium is in same window. On moss pole. Very forgiving. Will trail or climb — redirect vines to pole as it grows.",
     lastWatered: "2026-04-01",
   },
 ];
