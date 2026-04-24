@@ -470,14 +470,14 @@
   <button class="tab-btn active" onclick="switchTab('h', this)">🏠 Houseplants</button>
   <button class="tab-btn"        onclick="switchTab('g', this)">🌳 Garden</button>
   <button class="tab-btn"        onclick="switchTab('gardyn', this)">🌱 Gardyn</button>
-  <div class="tab-sync">🌿 Planta synced 2026-04-23</div>
+  <div class="tab-sync">🌿 Planta synced 2026-04-24</div>
 </div>
 
 <!-- ── HOUSEPLANT TAB ────────────────────────────────────────── -->
 <div id="tab-h" class="tab-panel active">
 <header>
   <h1>Houseplant Dashboard</h1>
-  <span id="updated-date">Updated 2026-04-23 &nbsp;·&nbsp; 🌿 Planta synced 2026-04-23</span>
+  <span id="updated-date">Updated 2026-04-24 &nbsp;·&nbsp; 🌿 Planta synced 2026-04-24</span>
 </header>
 
 <div class="stats">
@@ -791,7 +791,7 @@
 <div id="tab-g" class="tab-panel">
 <header>
   <h1>🌿 Gardening Dashboard</h1>
-  <span id="g-updated-date">Updated 2026-04-23 &nbsp;·&nbsp; 🌿 Planta synced 2026-04-23</span>
+  <span id="g-updated-date">Updated 2026-04-24 &nbsp;·&nbsp; 🌿 Planta synced 2026-04-24</span>
 </header>
 
 <div class="container">
@@ -861,7 +861,7 @@
 
   <div class="gd-header">
     <h1>🌱 Gardyn Dashboard</h1>
-    <span style="font-size:0.8rem;color:#888">Updated 2026-04-23</span>
+    <span style="font-size:0.8rem;color:#888">Updated 2026-04-24</span>
   </div>
 
   <div class="gd-stats">
@@ -2582,7 +2582,7 @@ const EXPENSES = [
 // PLANT_ORDERS_START
 const PLANT_ORDERS = [
   {"source": "Amazon", "items": ["that Yucca Stuff™ OMRI Listed Soil Conditioner & Wetting Agent (97% Yucca Schidigera Extract), 32 oz (qty 1)"], "orderNum": "113-4907028-7849851", "cost": "$30.83", "emailDate": "2026-04-18", "eta": "2026-04-18", "status": "arriving-today", "category": "houseplant"},
-  {"source": "Amazon", "items": ["Pure Life Distilled Water 128 fl oz (Pack of 6) (qty 1)"], "orderNum": "113-9973650-3239458", "cost": "$30.83", "emailDate": "2026-04-17", "eta": "2026-04-22", "status": "shipped", "category": "houseplant"},
+  {"source": "Amazon", "items": ["Pure Life Distilled Water 128 fl oz (Pack of 6) (qty 1)"], "orderNum": "113-9973650-3239458", "cost": "$30.83", "emailDate": "2026-04-17", "eta": "2026-04-22", "status": "delivered", "category": "houseplant"},
   {"source": "Logee's Plants", "items": ["Albuca 'Frizzle Sizzle' (Albuca spiralis) 4\" (qty 1)"], "orderNum": "SH50694", "cost": "$0.00 (replacement order, original $22.95)", "emailDate": "2026-04-17", "eta": null, "status": "ordered", "category": "houseplant"},
   {"source": "Naked Root", "items": ["12-Cell Seed Starter w/ Clear Tray + Cover - Peppercorn (qty 1)", "Classic Earth Planter - Clay (qty 1)", "Clearly Colorful Planter 8-Inch - Green Meadow (qty 1)", "Clearly Colorful Planter 3-Inch - Green Meadow (qty 1)", "Clearly Colorful Planter 5-Inch - Green Meadow (qty 1)", "12\" Clearly Earth Planter - Midnight Fog (qty 1)", "5\" Cosmic Love planter (qty 1)", "Clearly Earth Planter 3-Inch - Moon Glow (qty 6)"], "orderNum": "NR34515", "cost": "$167.90", "emailDate": "2026-04-12", "eta": "2026-04-15", "status": "delivered", "tracking": "UPS 1ZJ3539X0317895716", "category": "houseplant"},
   {"source": "Amazon", "items": ["Unknown contents (delivered via UPS 1ZX612350345204232)"], "orderNum": "unknown", "cost": "—", "emailDate": "2026-04-15", "eta": "2026-04-15", "status": "delivered", "tracking": "UPS 1ZX612350345204232", "note": "Delivered Wed 04/15 at 5:47 PM. Order number unknown — check Amazon order history to identify contents.", "category": "houseplant"},
@@ -2840,9 +2840,9 @@ function getDivaInfo(p) {
 function isDiva(p) { return !!getDivaInfo(p); }
 
 // ─────────────────────────────────────────────
-// PLANTA SYNC DATA — last synced 2026-04-23
+// PLANTA SYNC DATA — last synced 2026-04-24
 // ─────────────────────────────────────────────
-const PLANTA_SYNC_DATE = "2026-04-23";
+const PLANTA_SYNC_DATE = "2026-04-24";
 const PLANTA_DATA = {
   "Aglaonema Tricolor (Chinese Evergreen)"    : { nextWater: "2026-04-27", lastWater: "2026-04-14", nextMist: null, nextFertilize: "2026-05-05", lastFertilize: "2026-04-21", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/f8xPS0BKT8iNvD5IHbYGyg.webp", potType: "potPlastic", potSize: "15", soil: "tropicalSoil" },
   "Air Plant"                                 : { nextWater: "2026-04-26", lastWater: "2026-04-07", nextMist: null, nextFertilize: "2026-05-04", lastFertilize: "2026-04-18", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/nW0gwJOgQsie0TSCo5X5aQ.webp", potType: "none", potSize: null, soil: null },
@@ -3908,9 +3908,9 @@ function setTodayQuoteAndFact() {
 }
 
 // ─────────────────────────────────────────────
-// OUTDOOR SYNC DATA — last synced 2026-04-23
+// OUTDOOR SYNC DATA — last synced 2026-04-24
 // ─────────────────────────────────────────────
-const OUTDOOR_SYNC_DATE = "2026-04-23";
+const OUTDOOR_SYNC_DATE = "2026-04-24";
 const OUTDOOR_DATA = {
   "Caucasian Stonecrop"                       : { nextWater: null, lastWater: "2026-04-18", nextMist: null, nextFertilize: "2026-05-22", lastFertilize: "2026-04-22", nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/Cu90Iv9yTcygBHMj5mrpwg.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
   "Common Snowdrop"                           : { nextWater: "2026-04-24", lastWater: "2026-04-18", nextMist: null, nextFertilize: "2027-03-15", lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/j3q5Z8c6Qseeju4kRv1dGQ.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
