@@ -470,14 +470,14 @@
   <button class="tab-btn active" onclick="switchTab('h', this)">🏠 Houseplants</button>
   <button class="tab-btn"        onclick="switchTab('g', this)">🌳 Garden</button>
   <button class="tab-btn"        onclick="switchTab('gardyn', this)">🌱 Gardyn</button>
-  <div class="tab-sync">🌿 Planta synced 2026-04-30</div>
+  <div class="tab-sync">🌿 Planta synced 2026-05-01</div>
 </div>
 
 <!-- ── HOUSEPLANT TAB ────────────────────────────────────────── -->
 <div id="tab-h" class="tab-panel active">
 <header>
   <h1>Houseplant Dashboard</h1>
-  <span id="updated-date">Updated 2026-04-30 &nbsp;·&nbsp; 🌿 Planta synced 2026-04-30</span>
+  <span id="updated-date">Updated 2026-05-01 &nbsp;·&nbsp; 🌿 Planta synced 2026-05-01</span>
 </header>
 
 <div class="stats">
@@ -791,7 +791,7 @@
 <div id="tab-g" class="tab-panel">
 <header>
   <h1>🌿 Gardening Dashboard</h1>
-  <span id="g-updated-date">Updated 2026-04-30 &nbsp;·&nbsp; 🌿 Planta synced 2026-04-30</span>
+  <span id="g-updated-date">Updated 2026-05-01 &nbsp;·&nbsp; 🌿 Planta synced 2026-05-01</span>
 </header>
 
 <div class="container">
@@ -861,7 +861,7 @@
 
   <div class="gd-header">
     <h1>🌱 Gardyn Dashboard</h1>
-    <span style="font-size:0.8rem;color:#888">Updated 2026-04-30</span>
+    <span style="font-size:0.8rem;color:#888">Updated 2026-05-01</span>
   </div>
 
   <div class="gd-stats">
@@ -2581,7 +2581,8 @@ const EXPENSES = [
 // ─────────────────────────────────────────────
 // PLANT_ORDERS_START
 const PLANT_ORDERS = [
-  {"source": "Logee's Plants", "items": "Albuca 'Frizzle Sizzle' (Albuca spiralis), 4\" pot x1", "orderNum": "SH50694", "cost": "—", "emailDate": "2026-04-30", "eta": null, "status": "shipped", "category": "houseplant", "tracking": "UPS 1Z09398G0307951481"},
+  {"source": "Logee's Plants", "items": "Albuca 'Frizzle Sizzle' (Albuca spiralis), 4\" pot x1", "orderNum": "SH50694", "cost": "—", "emailDate": "2026-04-30", "eta": "2026-05-01", "status": "arriving-today", "category": "houseplant", "tracking": "UPS 1Z09398G0307951481"},
+  {"source": "Amazon", "items": "Miracle-Gro Indoor Plant Food for Tropicals, Liquid, 8 fl. oz., 2-Pack", "orderNum": "113-8549721-3205821", "cost": "16.22", "emailDate": "2026-05-01", "eta": "2026-05-02", "status": "shipped", "category": "houseplant", "tracking": "Amazon"},
 ];
 // PLANT_ORDERS_END
 
@@ -2830,9 +2831,9 @@ function getDivaInfo(p) {
 function isDiva(p) { return !!getDivaInfo(p); }
 
 // ─────────────────────────────────────────────
-// PLANTA SYNC DATA — last synced 2026-04-30
+// PLANTA SYNC DATA — last synced 2026-05-01
 // ─────────────────────────────────────────────
-const PLANTA_SYNC_DATE = "2026-04-30";
+const PLANTA_SYNC_DATE = "2026-05-01";
 const PLANTA_DATA = {
   "Aglaonema Tricolor (Chinese Evergreen)"    : { nextWater: "2026-05-04", lastWater: "2026-04-28", nextMist: null, nextFertilize: "2026-05-11", lastFertilize: "2026-04-21", nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/eatvtimIQLiQ5ZaqCza9VA.webp", potType: "potPlastic", potSize: "15", soil: "tropicalSoil" },
   "Air Plant"                                 : { nextWater: "2026-05-15", lastWater: "2026-04-28", nextMist: null, nextFertilize: "2026-05-06", lastFertilize: "2026-04-18", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/nW0gwJOgQsie0TSCo5X5aQ.webp", potType: "none", potSize: null, soil: null },
@@ -3899,9 +3900,9 @@ function setTodayQuoteAndFact() {
 }
 
 // ─────────────────────────────────────────────
-// OUTDOOR SYNC DATA — last synced 2026-04-30
+// OUTDOOR SYNC DATA — last synced 2026-05-01
 // ─────────────────────────────────────────────
-const OUTDOOR_SYNC_DATE = "2026-04-30";
+const OUTDOOR_SYNC_DATE = "2026-05-01";
 const OUTDOOR_DATA = {
   "Caucasian Stonecrop"                       : { nextWater: null, lastWater: "2026-04-26", nextMist: null, nextFertilize: "2026-05-22", lastFertilize: "2026-04-22", nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/Cu90Iv9yTcygBHMj5mrpwg.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
   "Common Snowdrop"                           : { nextWater: "2026-05-03", lastWater: "2026-04-26", nextMist: null, nextFertilize: "2027-03-15", lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/j3q5Z8c6Qseeju4kRv1dGQ.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
