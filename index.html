@@ -470,14 +470,14 @@
   <button class="tab-btn active" onclick="switchTab('h', this)">🏠 Houseplants</button>
   <button class="tab-btn"        onclick="switchTab('g', this)">🌳 Garden</button>
   <button class="tab-btn"        onclick="switchTab('gardyn', this)">🌱 Gardyn</button>
-  <div class="tab-sync">🌿 Planta synced 2026-05-23</div>
+  <div class="tab-sync">🌿 Planta synced 2026-05-24</div>
 </div>
 
 <!-- ── HOUSEPLANT TAB ────────────────────────────────────────── -->
 <div id="tab-h" class="tab-panel active">
 <header>
   <h1>Houseplant Dashboard</h1>
-  <span id="updated-date">Updated 2026-05-23 &nbsp;·&nbsp; 🌿 Planta synced 2026-05-23</span>
+  <span id="updated-date">Updated 2026-05-24 &nbsp;·&nbsp; 🌿 Planta synced 2026-05-24</span>
 </header>
 
 <div class="stats">
@@ -794,7 +794,7 @@
 <div id="tab-g" class="tab-panel">
 <header>
   <h1>🌿 Gardening Dashboard</h1>
-  <span id="g-updated-date">Updated 2026-05-23 &nbsp;·&nbsp; 🌿 Planta synced 2026-05-23</span>
+  <span id="g-updated-date">Updated 2026-05-24 &nbsp;·&nbsp; 🌿 Planta synced 2026-05-24</span>
 </header>
 
 <div class="container">
@@ -864,7 +864,7 @@
 
   <div class="gd-header">
     <h1>🌱 Gardyn Dashboard</h1>
-    <span style="font-size:0.8rem;color:#888">Updated 2026-05-23</span>
+    <span style="font-size:0.8rem;color:#888">Updated 2026-05-24</span>
   </div>
 
   <div class="gd-stats">
@@ -2636,6 +2636,10 @@ const EXPENSES = [
 // ─────────────────────────────────────────────
 // PLANT_ORDERS_START
 const PLANT_ORDERS = [
+  {"source": "Amazon", "items": "Grow Cubes for Hydroponic System (Gardyn-compatible, Seed Starter Nursery)", "orderNum": "113-2998973-3632265", "cost": "$25.99", "emailDate": "2026-05-24", "eta": "2026-05-24", "status": "arriving-today", "category": "gardyn"},
+  {"source": "Amazon", "items": "KZF 15L Humidifier for Plants (2000 sq.ft, 72hr runtime, top-fill)", "orderNum": "113-9182553-9709849", "cost": "$89.99", "emailDate": "2026-05-23", "eta": "2026-05-24", "status": "arriving-today", "category": "houseplant"},
+  {"source": "Amazon", "items": "Kaytee Hummingbird ElectroNectar Wild Bird Food (64 oz)", "orderNum": "113-2320468-3904247", "cost": "$9.99", "emailDate": "2026-05-23", "eta": "2026-05-24", "status": "arriving-today", "category": "garden"},
+  {"source": "Amazon", "items": "Dreamdrawer Window Hummingbird Feeder (2-pack, suction-mounted, 6 ports)", "orderNum": "113-1060667-9923432", "cost": "$16.99", "emailDate": "2026-05-23", "eta": "2026-05-24", "status": "arriving-today", "category": "garden"},
 ];
 // PLANT_ORDERS_END
 
@@ -2890,9 +2894,9 @@ function getDivaInfo(p) {
 function isDiva(p) { return !!getDivaInfo(p); }
 
 // ─────────────────────────────────────────────
-// PLANTA SYNC DATA — last synced 2026-05-23
+// PLANTA SYNC DATA — last synced 2026-05-24
 // ─────────────────────────────────────────────
-const PLANTA_SYNC_DATE = "2026-05-23";
+const PLANTA_SYNC_DATE = "2026-05-24";
 const PLANTA_DATA = {
   "Aglaonema Tricolor (Chinese Evergreen)"    : { nextWater: "2026-06-06", lastWater: "2026-05-21", nextMist: null, nextFertilize: "2026-05-29", lastFertilize: "2026-05-13", nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/eatvtimIQLiQ5ZaqCza9VA.webp", potType: "potPlastic", potSize: "15", soil: "tropicalSoil" },
   "Air Plant"                                 : { nextWater: "2026-05-20", lastWater: "2026-04-28", nextMist: null, nextFertilize: "2026-05-23", lastFertilize: "2026-05-09", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/nW0gwJOgQsie0TSCo5X5aQ.webp", potType: "none", potSize: null, soil: null },
@@ -3958,9 +3962,9 @@ function setTodayQuoteAndFact() {
 }
 
 // ─────────────────────────────────────────────
-// OUTDOOR SYNC DATA — last synced 2026-05-23
+// OUTDOOR SYNC DATA — last synced 2026-05-24
 // ─────────────────────────────────────────────
-const OUTDOOR_SYNC_DATE = "2026-05-23";
+const OUTDOOR_SYNC_DATE = "2026-05-24";
 const OUTDOOR_DATA = {
   "Caucasian Stonecrop"                       : { nextWater: null, lastWater: "2026-05-20", nextMist: null, nextFertilize: "2026-05-22", lastFertilize: "2026-04-22", nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/Cu90Iv9yTcygBHMj5mrpwg.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
   "Common Snowdrop"                           : { nextWater: "2026-05-28", lastWater: "2026-05-20", nextMist: null, nextFertilize: "2027-03-15", lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/j3q5Z8c6Qseeju4kRv1dGQ.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
