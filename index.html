@@ -470,14 +470,14 @@
   <button class="tab-btn active" onclick="switchTab('h', this)">🏠 Houseplants</button>
   <button class="tab-btn"        onclick="switchTab('g', this)">🌳 Garden</button>
   <button class="tab-btn"        onclick="switchTab('gardyn', this)">🌱 Gardyn</button>
-  <div class="tab-sync">🌿 Planta synced 2026-06-16</div>
+  <div class="tab-sync">🌿 Planta synced 2026-06-17</div>
 </div>
 
 <!-- ── HOUSEPLANT TAB ────────────────────────────────────────── -->
 <div id="tab-h" class="tab-panel active">
 <header>
   <h1>Houseplant Dashboard</h1>
-  <span id="updated-date">Updated 2026-06-16 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-16</span>
+  <span id="updated-date">Updated 2026-06-17 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-17</span>
 </header>
 
 <div class="stats">
@@ -794,7 +794,7 @@
 <div id="tab-g" class="tab-panel">
 <header>
   <h1>🌿 Gardening Dashboard</h1>
-  <span id="g-updated-date">Updated 2026-06-16 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-16</span>
+  <span id="g-updated-date">Updated 2026-06-17 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-17</span>
 </header>
 
 <div class="container">
@@ -864,7 +864,7 @@
 
   <div class="gd-header">
     <h1>🌱 Gardyn Dashboard</h1>
-    <span style="font-size:0.8rem;color:#888">Updated 2026-06-16</span>
+    <span style="font-size:0.8rem;color:#888">Updated 2026-06-17</span>
   </div>
 
   <div class="gd-stats">
@@ -2636,9 +2636,9 @@ const EXPENSES = [
 // ─────────────────────────────────────────────
 // PLANT_ORDERS_START
 const PLANT_ORDERS = [
-  {"source": "Gardyn", "items": "Gardyn Vase - Sage Green (1), Gardyn Trellis - 3 Pack (1), yPod - Pack of 2 (1)", "orderNum": "D2231404191", "cost": "$122.26", "emailDate": "2026-06-15", "eta": null, "status": "shipped", "category": "gardyn"},
-  {"source": "Amazon", "items": "DAOTAILI 2-Pack 4\" Grow Tent Fan with Temp/Humidity Meter (hydroponic ventilation)", "orderNum": "113-6692873-5721869", "cost": "$49.90", "emailDate": "2026-06-15", "eta": "2026-06-15", "status": "delivered", "category": "houseplant"},
-  {"source": "Amazon", "items": "GARDENWISE Slow Release Hydrangea Fertilizer with Iron & Sulfur, Soil Acidifier (1/2 qt)", "orderNum": "113-6151347-3257854", "cost": "$14.88", "emailDate": "2026-06-16", "eta": "2026-06-16", "status": "delivered", "category": "garden"},
+  {"source": "Amazon", "items": "GARDENWISE Slow Release Hydrangea Fertilizer with Iron & Sulfur, Indoor & Outdoor Soil Acidifier (1/2 qt), Qty 1", "orderNum": "113-6151347-3257854", "cost": "$14.88", "emailDate": "2026-06-16", "eta": "2026-06-17", "status": "delivered", "category": "houseplant"},
+  {"source": "Amazon", "items": "DAOTAILI 2-Pack 4\" Grow Tent Fan with Temperature and Humidity Meter, Oscillating Hydroponic Ventilation Fan, Qty 1", "orderNum": "113-6692873-5721869", "cost": "$55.00", "emailDate": "2026-06-15", "eta": "2026-06-15", "status": "delivered", "category": "houseplant"},
+  {"source": "Gardyn", "items": "Gardyn Vase - Sage Green (Qty 1), Gardyn Trellis - 3 Pack (Qty 1), yPod - Pack of 2 (Qty 1)", "orderNum": "D2231404191", "cost": "$122.26", "emailDate": "2026-06-15", "eta": null, "status": "shipped", "category": "gardyn"},
 ];
 // PLANT_ORDERS_END
 
@@ -2892,9 +2892,9 @@ function getDivaInfo(p) {
 function isDiva(p) { return !!getDivaInfo(p); }
 
 // ─────────────────────────────────────────────
-// PLANTA SYNC DATA — last synced 2026-06-16
+// PLANTA SYNC DATA — last synced 2026-06-17
 // ─────────────────────────────────────────────
-const PLANTA_SYNC_DATE = "2026-06-16";
+const PLANTA_SYNC_DATE = "2026-06-17";
 const PLANTA_DATA = {
   "Aglaonema Tricolor (Chinese Evergreen)"    : { nextWater: "2026-06-22", lastWater: "2026-06-07", nextMist: null, nextFertilize: "2026-06-29", lastFertilize: "2026-06-16", nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/eatvtimIQLiQ5ZaqCza9VA.webp", potType: "potPlastic", potSize: "15", soil: "tropicalSoil" },
   "Air Plant"                                 : { nextWater: "2026-06-11", lastWater: "2026-06-06", nextMist: null, nextFertilize: "2026-06-16", lastFertilize: "2026-06-02", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/nW0gwJOgQsie0TSCo5X5aQ.webp", potType: "none", potSize: null, soil: null },
@@ -3960,9 +3960,9 @@ function setTodayQuoteAndFact() {
 }
 
 // ─────────────────────────────────────────────
-// OUTDOOR SYNC DATA — last synced 2026-06-16
+// OUTDOOR SYNC DATA — last synced 2026-06-17
 // ─────────────────────────────────────────────
-const OUTDOOR_SYNC_DATE = "2026-06-16";
+const OUTDOOR_SYNC_DATE = "2026-06-17";
 const OUTDOOR_DATA = {
   "Caucasian Stonecrop"                       : { nextWater: null, lastWater: "2026-06-12", nextMist: null, nextFertilize: "2026-07-15", lastFertilize: "2026-06-16", nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/Cu90Iv9yTcygBHMj5mrpwg.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
   "Common Snowdrop"                           : { nextWater: "2026-06-17", lastWater: "2026-06-16", nextMist: null, nextFertilize: "2027-03-15", lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/j3q5Z8c6Qseeju4kRv1dGQ.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
