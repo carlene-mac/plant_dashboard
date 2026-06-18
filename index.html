@@ -470,14 +470,14 @@
   <button class="tab-btn active" onclick="switchTab('h', this)">🏠 Houseplants</button>
   <button class="tab-btn"        onclick="switchTab('g', this)">🌳 Garden</button>
   <button class="tab-btn"        onclick="switchTab('gardyn', this)">🌱 Gardyn</button>
-  <div class="tab-sync">🌿 Planta synced 2026-06-17</div>
+  <div class="tab-sync">🌿 Planta synced 2026-06-18</div>
 </div>
 
 <!-- ── HOUSEPLANT TAB ────────────────────────────────────────── -->
 <div id="tab-h" class="tab-panel active">
 <header>
   <h1>Houseplant Dashboard</h1>
-  <span id="updated-date">Updated 2026-06-17 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-17</span>
+  <span id="updated-date">Updated 2026-06-18 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-18</span>
 </header>
 
 <div class="stats">
@@ -794,7 +794,7 @@
 <div id="tab-g" class="tab-panel">
 <header>
   <h1>🌿 Gardening Dashboard</h1>
-  <span id="g-updated-date">Updated 2026-06-17 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-17</span>
+  <span id="g-updated-date">Updated 2026-06-18 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-18</span>
 </header>
 
 <div class="container">
@@ -864,7 +864,7 @@
 
   <div class="gd-header">
     <h1>🌱 Gardyn Dashboard</h1>
-    <span style="font-size:0.8rem;color:#888">Updated 2026-06-17</span>
+    <span style="font-size:0.8rem;color:#888">Updated 2026-06-18</span>
   </div>
 
   <div class="gd-stats">
@@ -2636,10 +2636,11 @@ const EXPENSES = [
 // ─────────────────────────────────────────────
 // PLANT_ORDERS_START
 const PLANT_ORDERS = [
-  {"source": "Amazon", "items": "GARDENWISE Slow Release Hydrangea Fertilizer with Iron & Sulfur, Indoor & Outdoor Soil Acidifier (1/2 qt), Qty 1", "orderNum": "113-6151347-3257854", "cost": "$14.88", "emailDate": "2026-06-16", "eta": "2026-06-17", "status": "delivered", "category": "houseplant"},
-  {"source": "Amazon", "items": "DAOTAILI 2-Pack 4\" Grow Tent Fan with Temperature and Humidity Meter, Oscillating Hydroponic Ventilation Fan, Qty 1", "orderNum": "113-6692873-5721869", "cost": "$55.00", "emailDate": "2026-06-15", "eta": "2026-06-15", "status": "delivered", "category": "houseplant"},
-  {"source": "Gardyn", "items": "Gardyn Vase - Sage Green (Qty 1), Gardyn Trellis - 3 Pack (Qty 1), yPod - Pack of 2 (Qty 1)", "orderNum": "D2231404191", "cost": "$122.26", "emailDate": "2026-06-15", "eta": "2026-06-17", "status": "delivered", "category": "gardyn"},
+  {"source": "Amazon", "items": "Intra-FIT Rose Pruning Gloves, thorn-resistant with long forearm protection, Qty 1", "orderNum": "113-8582809-8786617", "cost": "$19.99", "emailDate": "2026-06-18", "eta": "2026-06-18", "status": "arriving-today", "category": "garden"},
   {"source": "Amazon", "items": "Bonide 428 Eight Insect Control Garden & Home Outdoor Insecticide, Kills Beetles, Ants, Aphids, 32 oz, Qty 1", "orderNum": "113-0095366-2360261", "cost": "$7.99", "emailDate": "2026-06-17", "eta": "2026-06-18", "status": "shipped", "category": "garden"},
+  {"source": "Gardyn", "items": "Gardyn Vase - Sage Green (Qty 1), Gardyn Trellis - 3 Pack (Qty 1), yPod - Pack of 2 (Qty 1)", "orderNum": "D2231404191", "cost": "$122.26", "emailDate": "2026-06-17", "eta": "2026-06-17", "status": "delivered", "category": "gardyn"},
+  {"source": "Amazon", "items": "GARDENWISE Slow Release Hydrangea Fertilizer with Iron & Sulfur, Indoor & Outdoor Soil Acidifier (1/2 qt), Qty 1", "orderNum": "113-6151347-3257854", "cost": "$14.88", "emailDate": "2026-06-16", "eta": "2026-06-16", "status": "delivered", "category": "houseplant"},
+  {"source": "Amazon", "items": "DAOTAILI 2-Pack 4\" Grow Tent Fan with Temperature and Humidity Meter, Oscillating Hydroponic Ventilation Fan, Qty 1", "orderNum": "113-6692873-5721869", "cost": "$55.00", "emailDate": "2026-06-15", "eta": "2026-06-15", "status": "delivered", "category": "houseplant"},
 ];
 // PLANT_ORDERS_END
 
@@ -2893,12 +2894,12 @@ function getDivaInfo(p) {
 function isDiva(p) { return !!getDivaInfo(p); }
 
 // ─────────────────────────────────────────────
-// PLANTA SYNC DATA — last synced 2026-06-17
+// PLANTA SYNC DATA — last synced 2026-06-18
 // ─────────────────────────────────────────────
-const PLANTA_SYNC_DATE = "2026-06-17";
+const PLANTA_SYNC_DATE = "2026-06-18";
 const PLANTA_DATA = {
   "Aglaonema Tricolor (Chinese Evergreen)"    : { nextWater: "2026-06-22", lastWater: "2026-06-07", nextMist: null, nextFertilize: "2026-06-29", lastFertilize: "2026-06-16", nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/eatvtimIQLiQ5ZaqCza9VA.webp", potType: "potPlastic", potSize: "15", soil: "tropicalSoil" },
-  "Air Plant"                                 : { nextWater: "2026-06-11", lastWater: "2026-06-06", nextMist: null, nextFertilize: "2026-06-16", lastFertilize: "2026-06-02", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/nW0gwJOgQsie0TSCo5X5aQ.webp", potType: "none", potSize: null, soil: null },
+  "Air Plant"                                 : { nextWater: "2026-06-27", lastWater: "2026-06-17", nextMist: null, nextFertilize: "2026-06-22", lastFertilize: "2026-06-02", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/nW0gwJOgQsie0TSCo5X5aQ.webp", potType: "none", potSize: null, soil: null },
   "Angel Wings — Freida Hemple (Caladium)"    : { nextWater: "2026-06-19", lastWater: "2026-06-12", nextMist: null, nextFertilize: "2026-06-27", lastFertilize: "2026-06-04", nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/hAQt6wn1QCCgLOiWBkBtrQ.webp", potType: "potPlastic", potSize: "12.7", soil: "pottingSoilAndDrainage" },
   "Black Rose Zwartkop (Aeonium)"             : { nextWater: "2026-06-17", lastWater: "2026-06-05", nextMist: null, nextFertilize: "2026-06-29", lastFertilize: "2026-05-23", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/fNGEohOeRA2Z4dh_DkbcBw.webp", potType: "potOriginalPlastic", potSize: "5", soil: "cactusPalmCitrusSoil" },
   "Closed Tropical Terrarium"                 : { nextWater: "2026-06-21", lastWater: "2026-05-22", nextMist: null, nextFertilize: null, lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/t7JwZ-FqQYa_xeFwp3sL0g.webp", potType: "potOriginalPlastic", potSize: "25.4", soil: "tropicalSoil" },
@@ -2948,8 +2949,8 @@ const PLANTA_DATA = {
   "String of Turtles #1"                      : { nextWater: "2026-06-20", lastWater: "2026-06-13", nextMist: null, nextFertilize: "2026-06-16", lastFertilize: "2026-06-09", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/uw9AMcS-Qva66GszET4lJg.webp", potType: "potOriginalPlastic", potSize: "10", soil: "allPurposePottingMix" },
   "String of Turtles (Logee's)"               : { nextWater: "2026-06-19", lastWater: "2026-06-05", nextMist: null, nextFertilize: "2026-06-26", lastFertilize: "2026-06-13", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/SChInpJaRh2Z_6GIHNitLA.webp", potType: "potPlastic", potSize: null, soil: null },
   "String of Turtles (Office)"                : { nextWater: "2026-06-29", lastWater: "2026-06-16", nextMist: null, nextFertilize: "2026-06-22", lastFertilize: "2026-06-09", nextRepot: "2027-03-07", health: null, imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/yQx7RXwwQtOmqZH__Hbf2g.webp", potType: "potPlastic", potSize: null, soil: null },
-  "Tillandsia abdita"                         : { nextWater: "2026-06-11", lastWater: "2026-05-29", nextMist: null, nextFertilize: "2026-06-04", lastFertilize: "2026-05-09", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/YGoSiLo8TdaPPgYqmaY6Og.webp", potType: "none", potSize: null, soil: null },
-  "Tillandsia brachycaulos"                   : { nextWater: "2026-06-11", lastWater: "2026-05-29", nextMist: null, nextFertilize: "2026-06-04", lastFertilize: "2026-05-09", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/_23lp1oPQKKzj1LGYSbnRQ.webp", potType: "none", potSize: null, soil: null },
+  "Tillandsia abdita"                         : { nextWater: "2026-06-27", lastWater: "2026-06-17", nextMist: null, nextFertilize: "2026-06-22", lastFertilize: "2026-05-09", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/YGoSiLo8TdaPPgYqmaY6Og.webp", potType: "none", potSize: null, soil: null },
+  "Tillandsia brachycaulos"                   : { nextWater: "2026-06-27", lastWater: "2026-06-17", nextMist: null, nextFertilize: "2026-06-22", lastFertilize: "2026-05-09", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/_23lp1oPQKKzj1LGYSbnRQ.webp", potType: "none", potSize: null, soil: null },
   "Trumpet Pitcher"                           : { nextWater: "2026-06-18", lastWater: "2026-06-17", nextMist: null, nextFertilize: null, lastFertilize: null, nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/7ahHg_wZR-2VzPRABVaG6Q.webp", potType: "potOriginalPlastic", potSize: "7", soil: "carnivoresPlantMix" },
   "Variegated String of Hearts"               : { nextWater: "2026-06-15", lastWater: "2026-05-29", nextMist: null, nextFertilize: "2026-06-22", lastFertilize: "2026-06-09", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/RUaYOCwoSgeKVexwnau3fg.webp", potType: "potPlastic", potSize: null, soil: null },
   "Venus Fly Trap #1 (dying)"                 : { nextWater: "2026-06-18", lastWater: "2026-06-16", nextMist: null, nextFertilize: null, lastFertilize: null, nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/jwOPqznrQ8SI8yAOKJmc_w.webp", potType: "potOriginalPlastic", potSize: null, soil: null },
@@ -3961,9 +3962,9 @@ function setTodayQuoteAndFact() {
 }
 
 // ─────────────────────────────────────────────
-// OUTDOOR SYNC DATA — last synced 2026-06-17
+// OUTDOOR SYNC DATA — last synced 2026-06-18
 // ─────────────────────────────────────────────
-const OUTDOOR_SYNC_DATE = "2026-06-17";
+const OUTDOOR_SYNC_DATE = "2026-06-18";
 const OUTDOOR_DATA = {
   "Caucasian Stonecrop"                       : { nextWater: null, lastWater: "2026-06-12", nextMist: null, nextFertilize: "2026-07-15", lastFertilize: "2026-06-16", nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/Cu90Iv9yTcygBHMj5mrpwg.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
   "Common Snowdrop"                           : { nextWater: "2026-06-17", lastWater: "2026-06-16", nextMist: null, nextFertilize: "2027-03-15", lastFertilize: null, nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/j3q5Z8c6Qseeju4kRv1dGQ.webp", potType: "ground", potSize: null, soil: "allPurposeGardenSoil" },
