@@ -470,14 +470,14 @@
   <button class="tab-btn active" onclick="switchTab('h', this)">🏠 Houseplants</button>
   <button class="tab-btn"        onclick="switchTab('g', this)">🌳 Garden</button>
   <button class="tab-btn"        onclick="switchTab('gardyn', this)">🌱 Gardyn</button>
-  <div class="tab-sync">🌿 Planta synced 2026-06-22</div>
+  <div class="tab-sync">🌿 Planta synced 2026-06-23</div>
 </div>
 
 <!-- ── HOUSEPLANT TAB ────────────────────────────────────────── -->
 <div id="tab-h" class="tab-panel active">
 <header>
   <h1>Houseplant Dashboard</h1>
-  <span id="updated-date">Updated 2026-06-22 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-22</span>
+  <span id="updated-date">Updated 2026-06-23 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-23</span>
 </header>
 
 <div class="stats">
@@ -794,7 +794,7 @@
 <div id="tab-g" class="tab-panel">
 <header>
   <h1>🌿 Gardening Dashboard</h1>
-  <span id="g-updated-date">Updated 2026-06-22 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-22</span>
+  <span id="g-updated-date">Updated 2026-06-23 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-23</span>
 </header>
 
 <div class="container">
@@ -864,7 +864,7 @@
 
   <div class="gd-header">
     <h1>🌱 Gardyn Dashboard</h1>
-    <span style="font-size:0.8rem;color:#888">Updated 2026-06-22</span>
+    <span style="font-size:0.8rem;color:#888">Updated 2026-06-23</span>
   </div>
 
   <div class="gd-stats">
@@ -2636,11 +2636,12 @@ const EXPENSES = [
 // ─────────────────────────────────────────────
 // PLANT_ORDERS_START
 const PLANT_ORDERS = [
-  {"source": "Amazon", "items": "Intra-FIT Rose Pruning Gloves, thorn-resistant with long forearm protection, Qty 1", "orderNum": "113-8582809-8786617", "cost": "$19.99", "emailDate": "2026-06-18", "eta": "2026-06-18", "status": "arriving-today", "category": "garden"},
-  {"source": "Amazon", "items": "Bonide 428 Eight Insect Control Garden & Home Outdoor Insecticide, Kills Beetles, Ants, Aphids, 32 oz, Qty 1", "orderNum": "113-0095366-2360261", "cost": "$7.99", "emailDate": "2026-06-17", "eta": "2026-06-18", "status": "shipped", "category": "garden"},
-  {"source": "Gardyn", "items": "Gardyn Vase - Sage Green (Qty 1), Gardyn Trellis - 3 Pack (Qty 1), yPod - Pack of 2 (Qty 1)", "orderNum": "D2231404191", "cost": "$122.26", "emailDate": "2026-06-17", "eta": "2026-06-17", "status": "delivered", "category": "gardyn"},
-  {"source": "Amazon", "items": "GARDENWISE Slow Release Hydrangea Fertilizer with Iron & Sulfur, Indoor & Outdoor Soil Acidifier (1/2 qt), Qty 1", "orderNum": "113-6151347-3257854", "cost": "$14.88", "emailDate": "2026-06-16", "eta": "2026-06-16", "status": "delivered", "category": "houseplant"},
-  {"source": "Amazon", "items": "DAOTAILI 2-Pack 4\" Grow Tent Fan with Temperature and Humidity Meter, Oscillating Hydroponic Ventilation Fan, Qty 1", "orderNum": "113-6692873-5721869", "cost": "$55.00", "emailDate": "2026-06-15", "eta": "2026-06-15", "status": "delivered", "category": "houseplant"},
+  {"source": "Amazon", "items": "Mademax Solar Bird Bath Fountain Pump (8 nozzles, 4 brackets), Qty 1", "orderNum": "113-1670332-0445069", "cost": "$16.79", "emailDate": "2026-06-23", "eta": "2026-06-23", "status": "arriving-today", "category": "garden"},
+  {"source": "Amazon", "items": "Zinnia Seeds 4oz (15,300+ heirloom) + Love Lies Bleeding Amaranth Seeds (2g), Qty 1 each", "orderNum": "113-5144823-3132237", "cost": "$26.55", "emailDate": "2026-06-21", "eta": "2026-06-21", "status": "delivered", "category": "garden"},
+  {"source": "Amazon", "items": "Bonide 428 Eight Insect Control Garden & Home Outdoor Insecticide, 32 oz, Qty 1", "orderNum": "113-0095366-2360261", "cost": "$7.99", "emailDate": "2026-06-18", "eta": "2026-06-18", "status": "delivered", "category": "garden"},
+  {"source": "Amazon", "items": "Intra-FIT Rose Pruning Gloves, thorn-resistant with long forearm protection, Qty 1", "orderNum": "113-8582809-8786617", "cost": "$19.99", "emailDate": "2026-06-18", "eta": "2026-06-18", "status": "delivered", "category": "garden"},
+  {"source": "Gardyn", "items": "Gardyn Vase - Sage Green (Qty 1), Gardyn Trellis - 3 Pack (Qty 1), yPod - Pack of 2 (Qty 1)", "orderNum": "D2231404191", "cost": "—", "emailDate": "2026-06-17", "eta": "2026-06-17", "status": "delivered", "category": "gardyn"},
+  {"source": "Amazon", "items": "GARDENWISE Slow Release Hydrangea Fertilizer with Iron & Sulfur, Soil Acidifier (1/2 qt), Qty 1", "orderNum": "113-6151347-3257854", "cost": "—", "emailDate": "2026-06-16", "eta": "2026-06-16", "status": "delivered", "category": "garden"},
 ];
 // PLANT_ORDERS_END
 
@@ -2894,9 +2895,9 @@ function getDivaInfo(p) {
 function isDiva(p) { return !!getDivaInfo(p); }
 
 // ─────────────────────────────────────────────
-// PLANTA SYNC DATA — last synced 2026-06-22
+// PLANTA SYNC DATA — last synced 2026-06-23
 // ─────────────────────────────────────────────
-const PLANTA_SYNC_DATE = "2026-06-22";
+const PLANTA_SYNC_DATE = "2026-06-23";
 const PLANTA_DATA = {
   "Aglaonema Tricolor (Chinese Evergreen)"    : { nextWater: "2026-06-22", lastWater: "2026-06-07", nextMist: null, nextFertilize: "2026-06-29", lastFertilize: "2026-06-16", nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/eatvtimIQLiQ5ZaqCza9VA.webp", potType: "potPlastic", potSize: "15", soil: "tropicalSoil" },
   "Air Plant"                                 : { nextWater: "2026-06-27", lastWater: "2026-06-17", nextMist: null, nextFertilize: "2026-06-22", lastFertilize: "2026-06-02", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/nW0gwJOgQsie0TSCo5X5aQ.webp", potType: "none", potSize: null, soil: null },
@@ -3962,9 +3963,9 @@ function setTodayQuoteAndFact() {
 }
 
 // ─────────────────────────────────────────────
-// OUTDOOR SYNC DATA — last synced 2026-06-22
+// OUTDOOR SYNC DATA — last synced 2026-06-23
 // ─────────────────────────────────────────────
-const OUTDOOR_SYNC_DATE = "2026-06-22";
+const OUTDOOR_SYNC_DATE = "2026-06-23";
 const OUTDOOR_DATA = {
 };
 
