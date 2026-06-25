@@ -470,14 +470,14 @@
   <button class="tab-btn active" onclick="switchTab('h', this)">🏠 Houseplants</button>
   <button class="tab-btn"        onclick="switchTab('g', this)">🌳 Garden</button>
   <button class="tab-btn"        onclick="switchTab('gardyn', this)">🌱 Gardyn</button>
-  <div class="tab-sync">🌿 Planta synced 2026-06-24</div>
+  <div class="tab-sync">🌿 Planta synced 2026-06-25</div>
 </div>
 
 <!-- ── HOUSEPLANT TAB ────────────────────────────────────────── -->
 <div id="tab-h" class="tab-panel active">
 <header>
   <h1>Houseplant Dashboard</h1>
-  <span id="updated-date">Updated 2026-06-24 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-24</span>
+  <span id="updated-date">Updated 2026-06-25 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-25</span>
 </header>
 
 <div class="stats">
@@ -794,7 +794,7 @@
 <div id="tab-g" class="tab-panel">
 <header>
   <h1>🌿 Gardening Dashboard</h1>
-  <span id="g-updated-date">Updated 2026-06-24 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-24</span>
+  <span id="g-updated-date">Updated 2026-06-25 &nbsp;·&nbsp; 🌿 Planta synced 2026-06-25</span>
 </header>
 
 <div class="container">
@@ -864,7 +864,7 @@
 
   <div class="gd-header">
     <h1>🌱 Gardyn Dashboard</h1>
-    <span style="font-size:0.8rem;color:#888">Updated 2026-06-24</span>
+    <span style="font-size:0.8rem;color:#888">Updated 2026-06-25</span>
   </div>
 
   <div class="gd-stats">
@@ -2636,11 +2636,14 @@ const EXPENSES = [
 // ─────────────────────────────────────────────
 // PLANT_ORDERS_START
 const PLANT_ORDERS = [
-  {"source": "Amazon", "items": "Edible Birdhouse - Birdseed Bird Feeder, Wooden Squirrel-Resistant Hanging Bird Feeder for Outside (x1)", "orderNum": "113-7749340-4772215", "cost": "$47.80", "emailDate": "2026-06-23", "eta": "2026-06-24", "status": "arriving-today", "category": "garden"},
-  {"source": "Amazon", "items": "Zinnia Seeds Pack 4 oz (15,300+ Non-GMO Heirloom) (x1); 2000 Love Lies Bleeding Amaranth Seeds, Heirloom Non-GMO 2g (x1)", "orderNum": "113-5144823-3132237", "cost": "—", "emailDate": "2026-06-21", "eta": "2026-06-21", "status": "delivered", "category": "garden"},
+  {"source": "Amazon", "items": "Heath Outdoor Products DD4-10 All Season High Energy Suet Cake, Case of 10 (x1)", "orderNum": "113-0604805-8654631", "cost": "$14.08", "emailDate": "2026-06-25", "eta": "2026-06-25", "status": "arriving-today", "category": "garden"},
+  {"source": "Amazon", "items": "Garden Plastic Soil Scoop Shovel (x1); Garden Weasel Oversized Potting Scoop, Heavy Duty Soil Scoop (x1)", "orderNum": "113-8613480-4032232", "cost": "$41.71", "emailDate": "2026-06-25", "eta": "2026-06-25", "status": "arriving-today", "category": "garden"},
+  {"source": "Amazon", "items": "Wildlife Sciences Window Suet Feeder Cage + 11oz Peanut Suet Cake Combo (x1)", "orderNum": "113-2627947-7024269", "cost": "$13.81", "emailDate": "2026-06-25", "eta": "2026-06-26", "status": "shipped", "category": "garden"},
+  {"source": "Amazon", "items": "Mademax Solar Bird Bath Fountain, 1.4W Solar Pump w/ 8 Nozzles & 4 Brackets (x1)", "orderNum": "113-1670332-0445069", "cost": "$16.79", "emailDate": "2026-06-23", "eta": "2026-06-23", "status": "delivered", "category": "garden"},
+  {"source": "Amazon", "items": "Edible Birdhouse - Wooden Squirrel-Resistant Hanging Bird Feeder for Outside (x1)", "orderNum": "113-7749340-4772215", "cost": "$47.80", "emailDate": "2026-06-23", "eta": "2026-06-24", "status": "delivered", "category": "garden"},
+  {"source": "Amazon", "items": "Zinnia Seeds Pack 4 oz (15,300+ Non-GMO Heirloom) (x1); 2000 Love Lies Bleeding Amaranth Seeds, Heirloom Non-GMO 2g (x1)", "orderNum": "113-2202521-6627433", "cost": "$26.55", "emailDate": "2026-06-21", "eta": "2026-06-21", "status": "delivered", "category": "garden"},
   {"source": "Amazon", "items": "Bonide 428 Eight Insect Control Garden & Home Outdoor Insecticide, 32 oz (x1)", "orderNum": "113-0095366-2360261", "cost": "—", "emailDate": "2026-06-18", "eta": "2026-06-18", "status": "delivered", "category": "garden"},
-  {"source": "Amazon", "items": "Intra-FIT Rose Pruning Gloves, Thorn Resistant with Extra Long Forearm Protection (x1)", "orderNum": "113-8582809-8786617", "cost": "—", "emailDate": "2026-06-18", "eta": "2026-06-18", "status": "delivered", "category": "garden"},
-  {"source": "Gardyn", "items": "Gardyn Vase - Sage Green (x1); Gardyn Trellis - 3 Pack (x1); yPod - Pack of 2 (x1)", "orderNum": "D2231404191", "cost": "—", "emailDate": "2026-06-17", "eta": "2026-06-17", "status": "delivered", "category": "gardyn"},
+  {"source": "Amazon", "items": "Intra-FIT Rose Pruning Gloves, Thorn Resistant w/ Extra Long Forearm Protection (x1)", "orderNum": "113-8582809-8786617", "cost": "—", "emailDate": "2026-06-18", "eta": "2026-06-18", "status": "delivered", "category": "garden"},
 ];
 // PLANT_ORDERS_END
 
@@ -2894,9 +2897,9 @@ function getDivaInfo(p) {
 function isDiva(p) { return !!getDivaInfo(p); }
 
 // ─────────────────────────────────────────────
-// PLANTA SYNC DATA — last synced 2026-06-24
+// PLANTA SYNC DATA — last synced 2026-06-25
 // ─────────────────────────────────────────────
-const PLANTA_SYNC_DATE = "2026-06-24";
+const PLANTA_SYNC_DATE = "2026-06-25";
 const PLANTA_DATA = {
   "Aglaonema Tricolor (Chinese Evergreen)"    : { nextWater: "2026-07-07", lastWater: "2026-06-23", nextMist: null, nextFertilize: "2026-06-30", lastFertilize: "2026-06-16", nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/eatvtimIQLiQ5ZaqCza9VA.webp", potType: "potPlastic", potSize: "15", soil: "tropicalSoil" },
   "Air Plant"                                 : { nextWater: "2026-06-28", lastWater: "2026-06-17", nextMist: null, nextFertilize: "2026-07-03", lastFertilize: "2026-06-23", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/nW0gwJOgQsie0TSCo5X5aQ.webp", potType: "none", potSize: null, soil: null },
@@ -3962,9 +3965,9 @@ function setTodayQuoteAndFact() {
 }
 
 // ─────────────────────────────────────────────
-// OUTDOOR SYNC DATA — last synced 2026-06-24
+// OUTDOOR SYNC DATA — last synced 2026-06-25
 // ─────────────────────────────────────────────
-const OUTDOOR_SYNC_DATE = "2026-06-24";
+const OUTDOOR_SYNC_DATE = "2026-06-25";
 const OUTDOOR_DATA = {
 };
 
