@@ -470,14 +470,14 @@
   <button class="tab-btn active" onclick="switchTab('h', this)">🏠 Houseplants</button>
   <button class="tab-btn"        onclick="switchTab('g', this)">🌳 Garden</button>
   <button class="tab-btn"        onclick="switchTab('gardyn', this)">🌱 Gardyn</button>
-  <div class="tab-sync">🌿 Planta synced 2026-07-02</div>
+  <div class="tab-sync">🌿 Planta synced 2026-07-03</div>
 </div>
 
 <!-- ── HOUSEPLANT TAB ────────────────────────────────────────── -->
 <div id="tab-h" class="tab-panel active">
 <header>
   <h1>Houseplant Dashboard</h1>
-  <span id="updated-date">Updated 2026-07-02 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-02</span>
+  <span id="updated-date">Updated 2026-07-03 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-03</span>
 </header>
 
 <div class="stats">
@@ -794,7 +794,7 @@
 <div id="tab-g" class="tab-panel">
 <header>
   <h1>🌿 Gardening Dashboard</h1>
-  <span id="g-updated-date">Updated 2026-07-02 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-02</span>
+  <span id="g-updated-date">Updated 2026-07-03 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-03</span>
 </header>
 
 <div class="container">
@@ -864,7 +864,7 @@
 
   <div class="gd-header">
     <h1>🌱 Gardyn Dashboard</h1>
-    <span style="font-size:0.8rem;color:#888">Updated 2026-07-02</span>
+    <span style="font-size:0.8rem;color:#888">Updated 2026-07-03</span>
   </div>
 
   <div class="gd-stats">
@@ -2636,10 +2636,10 @@ const EXPENSES = [
 // ─────────────────────────────────────────────
 // PLANT_ORDERS_START
 const PLANT_ORDERS = [
-  {"source": "Amazon", "items": "Dyna-Gro Pro-Tekt 0-0-3 Silicon Supplement for Plants, 1 qt (x1)", "orderNum": "113-9544275-7530625", "cost": "$26.58", "emailDate": "2026-07-02", "eta": "2026-07-03", "status": "shipped", "category": "houseplant"},
+  {"source": "Amazon", "items": "Dyna-Gro Pro-Tekt 0-0-3 Silicon Supplement for Plants, 1 qt (x1)", "orderNum": "113-9544275-7530625", "cost": "$26.58", "emailDate": "2026-07-02", "eta": "2026-07-03", "status": "arriving-today", "category": "houseplant"},
   {"source": "Dutch Bulbs (K. van Bourgondien)", "items": "Allium Mount Everest (5 bulbs); Allium Gladiator (5 bulbs); Astilbe Mixed (10 roots); Wild Flower Bulb Mix (100 bulbs); All Spring Tulip Mix (100 bulbs); Mixed Daffodils All Colors and Kinds (100 bulbs)", "orderNum": "102304 / 61760198500", "cost": "$287.68", "emailDate": "2026-06-26", "eta": null, "status": "ordered", "category": "garden"},
   {"source": "Amazon", "items": "Garden Safe Brand Insecticidal Soap Insect Killer, 32 fl oz (x1); Bonide Captain Jack's Deadbug Brew Ready-to-Use Spray, 32 oz (x1)", "orderNum": "113-8504752-8285821", "cost": "$24.42", "emailDate": "2026-06-30", "eta": "2026-06-30", "status": "delivered", "category": "garden"},
-  {"source": "Amazon", "items": "Safer Garden 3-in-1 Ready-to-Use Fungicide, Miticide, and Insecticide Spray, 24 oz (x1)", "orderNum": "113-2854983-5373827", "cost": "$10.62", "emailDate": "2026-07-01", "eta": "2026-07-02", "status": "arriving-today", "category": "garden"},
+  {"source": "Amazon", "items": "Safer Garden 3-in-1 Ready-to-Use Fungicide, Miticide, and Insecticide Spray, 24 oz (x1)", "orderNum": "113-2854983-5373827", "cost": "$10.62", "emailDate": "2026-07-01", "eta": "2026-07-02", "status": "delivered", "category": "garden"},
   {"source": "Amazon", "items": "Garden Weasel Oversized Potting Scoop, Heavy Duty Soil Scoop (x1); Garden Plastic Soil Scoop Shovel (x1)", "orderNum": "113-8613480-4032232", "cost": "$41.71", "emailDate": "2026-06-25", "eta": "2026-06-25", "status": "delivered", "category": "houseplant"},
   {"source": "Amazon", "items": "Zinnia Seeds Pack 4 oz (15,300+ Non-GMO Heirloom) (x1); 2000 Love Lies Bleeding Amaranth Seeds, Heirloom Non-GMO 2g (x1)", "orderNum": "113-2202521-6627433", "cost": "$26.55", "emailDate": "2026-06-21", "eta": "2026-06-21", "status": "delivered", "category": "garden"},
 ];
@@ -2895,9 +2895,9 @@ function getDivaInfo(p) {
 function isDiva(p) { return !!getDivaInfo(p); }
 
 // ─────────────────────────────────────────────
-// PLANTA SYNC DATA — last synced 2026-07-02
+// PLANTA SYNC DATA — last synced 2026-07-03
 // ─────────────────────────────────────────────
-const PLANTA_SYNC_DATE = "2026-07-02";
+const PLANTA_SYNC_DATE = "2026-07-03";
 const PLANTA_DATA = {
   "Aglaonema Tricolor (Chinese Evergreen)"    : { nextWater: "2026-07-07", lastWater: "2026-06-23", nextMist: null, nextFertilize: "2026-07-14", lastFertilize: "2026-06-30", nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/eatvtimIQLiQ5ZaqCza9VA.webp", potType: "potPlastic", potSize: "15", soil: "tropicalSoil" },
   "Air Plant"                                 : { nextWater: "2026-07-14", lastWater: "2026-07-02", nextMist: null, nextFertilize: "2026-07-08", lastFertilize: "2026-06-23", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/nW0gwJOgQsie0TSCo5X5aQ.webp", potType: "none", potSize: null, soil: null },
@@ -3963,9 +3963,9 @@ function setTodayQuoteAndFact() {
 }
 
 // ─────────────────────────────────────────────
-// OUTDOOR SYNC DATA — last synced 2026-07-02
+// OUTDOOR SYNC DATA — last synced 2026-07-03
 // ─────────────────────────────────────────────
-const OUTDOOR_SYNC_DATE = "2026-07-02";
+const OUTDOOR_SYNC_DATE = "2026-07-03";
 const OUTDOOR_DATA = {
 };
 
