@@ -470,14 +470,14 @@
   <button class="tab-btn active" onclick="switchTab('h', this)">🏠 Houseplants</button>
   <button class="tab-btn"        onclick="switchTab('g', this)">🌳 Garden</button>
   <button class="tab-btn"        onclick="switchTab('gardyn', this)">🌱 Gardyn</button>
-  <div class="tab-sync">🌿 Planta synced 2026-07-06</div>
+  <div class="tab-sync">🌿 Planta synced 2026-07-07</div>
 </div>
 
 <!-- ── HOUSEPLANT TAB ────────────────────────────────────────── -->
 <div id="tab-h" class="tab-panel active">
 <header>
   <h1>Houseplant Dashboard</h1>
-  <span id="updated-date">Updated 2026-07-06 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-06</span>
+  <span id="updated-date">Updated 2026-07-07 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-07</span>
 </header>
 
 <div class="stats">
@@ -794,7 +794,7 @@
 <div id="tab-g" class="tab-panel">
 <header>
   <h1>🌿 Gardening Dashboard</h1>
-  <span id="g-updated-date">Updated 2026-07-06 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-06</span>
+  <span id="g-updated-date">Updated 2026-07-07 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-07</span>
 </header>
 
 <div class="container">
@@ -864,7 +864,7 @@
 
   <div class="gd-header">
     <h1>🌱 Gardyn Dashboard</h1>
-    <span style="font-size:0.8rem;color:#888">Updated 2026-07-06</span>
+    <span style="font-size:0.8rem;color:#888">Updated 2026-07-07</span>
   </div>
 
   <div class="gd-stats">
@@ -2897,9 +2897,9 @@ function getDivaInfo(p) {
 function isDiva(p) { return !!getDivaInfo(p); }
 
 // ─────────────────────────────────────────────
-// PLANTA SYNC DATA — last synced 2026-07-06
+// PLANTA SYNC DATA — last synced 2026-07-07
 // ─────────────────────────────────────────────
-const PLANTA_SYNC_DATE = "2026-07-06";
+const PLANTA_SYNC_DATE = "2026-07-07";
 const PLANTA_DATA = {
   "Aglaonema Tricolor (Chinese Evergreen)"    : { nextWater: "2026-07-07", lastWater: "2026-06-23", nextMist: null, nextFertilize: "2026-07-14", lastFertilize: "2026-06-30", nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/eatvtimIQLiQ5ZaqCza9VA.webp", potType: "potPlastic", potSize: "15", soil: "tropicalSoil" },
   "Air Plant"                                 : { nextWater: "2026-07-14", lastWater: "2026-07-02", nextMist: null, nextFertilize: "2026-07-08", lastFertilize: "2026-06-23", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/nW0gwJOgQsie0TSCo5X5aQ.webp", potType: "none", potSize: null, soil: null },
@@ -2956,8 +2956,8 @@ const PLANTA_DATA = {
   "Tillandsia brachycaulos"                   : { nextWater: "2026-07-14", lastWater: "2026-07-02", nextMist: null, nextFertilize: "2026-07-08", lastFertilize: "2026-06-23", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/_23lp1oPQKKzj1LGYSbnRQ.webp", potType: "none", potSize: null, soil: null },
   "Trumpet Pitcher"                           : { nextWater: "2026-07-05", lastWater: "2026-07-04", nextMist: null, nextFertilize: null, lastFertilize: null, nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/7ahHg_wZR-2VzPRABVaG6Q.webp", potType: "potOriginalPlastic", potSize: "7", soil: "carnivoresPlantMix" },
   "Variegated String of Hearts"               : { nextWater: "2026-07-07", lastWater: "2026-06-19", nextMist: null, nextFertilize: "2026-07-14", lastFertilize: "2026-06-30", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/RUaYOCwoSgeKVexwnau3fg.webp", potType: "potPlastic", potSize: null, soil: null },
-  "Venus Fly Trap #1 (dying)"                 : { nextWater: "2026-07-05", lastWater: "2026-07-02", nextMist: null, nextFertilize: null, lastFertilize: null, nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/jwOPqznrQ8SI8yAOKJmc_w.webp", potType: "potOriginalPlastic", potSize: null, soil: null },
-  "Venus Fly Trap #2"                         : { nextWater: "2026-07-06", lastWater: "2026-07-02", nextMist: null, nextFertilize: null, lastFertilize: null, nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/3JGxbyMoQxKTd-VK72e-nw.webp", potType: "potPlastic", potSize: "12", soil: "carnivoresPlantMix" },
+  "Venus Fly Trap #1 (dying)"                 : { nextWater: "2026-07-09", lastWater: "2026-07-07", nextMist: null, nextFertilize: null, lastFertilize: null, nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/jwOPqznrQ8SI8yAOKJmc_w.webp", potType: "potOriginalPlastic", potSize: null, soil: null },
+  "Venus Fly Trap #2"                         : { nextWater: "2026-07-10", lastWater: "2026-07-07", nextMist: null, nextFertilize: null, lastFertilize: null, nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/3JGxbyMoQxKTd-VK72e-nw.webp", potType: "potPlastic", potSize: "12", soil: "carnivoresPlantMix" },
   "White Cyclamen"                            : { nextWater: "2026-07-04", lastWater: "2026-06-30", nextMist: null, nextFertilize: "2026-07-08", lastFertilize: "2026-06-22", nextRepot: null, health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/cRWxsILITpWWRYZSpdu3Lg.webp", potType: "potOriginalPlastic", potSize: "10", soil: "allPurposePottingMix" },
   "Wrinkled-Leaf Peperomia"                   : { nextWater: "2026-07-09", lastWater: "2026-06-30", nextMist: null, nextFertilize: "2026-07-26", lastFertilize: "2026-06-19", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/9ukiax14Q42Ve-nsNhFWEg.webp", potType: "potPorcelain", potSize: "15", soil: "allPurposePottingMix" },
   "Zebra Plant"                               : { nextWater: "2026-07-19", lastWater: "2026-06-17", nextMist: null, nextFertilize: "2026-08-04", lastFertilize: "2026-07-03", nextRepot: "2027-03-07", health: "good", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/Cof7j5DCT-qbf-dIrQzjiA.webp", potType: "potTerracotta", potSize: "20.32", soil: "cactusSoil" },
@@ -3965,9 +3965,9 @@ function setTodayQuoteAndFact() {
 }
 
 // ─────────────────────────────────────────────
-// OUTDOOR SYNC DATA — last synced 2026-07-06
+// OUTDOOR SYNC DATA — last synced 2026-07-07
 // ─────────────────────────────────────────────
-const OUTDOOR_SYNC_DATE = "2026-07-06";
+const OUTDOOR_SYNC_DATE = "2026-07-07";
 const OUTDOOR_DATA = {
 };
 
