@@ -470,14 +470,14 @@
   <button class="tab-btn active" onclick="switchTab('h', this)">🏠 Houseplants</button>
   <button class="tab-btn"        onclick="switchTab('g', this)">🌳 Garden</button>
   <button class="tab-btn"        onclick="switchTab('gardyn', this)">🌱 Gardyn</button>
-  <div class="tab-sync">🌿 Planta synced 2026-07-09</div>
+  <div class="tab-sync">🌿 Planta synced 2026-07-10</div>
 </div>
 
 <!-- ── HOUSEPLANT TAB ────────────────────────────────────────── -->
 <div id="tab-h" class="tab-panel active">
 <header>
   <h1>Houseplant Dashboard</h1>
-  <span id="updated-date">Updated 2026-07-09 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-09</span>
+  <span id="updated-date">Updated 2026-07-10 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-10</span>
 </header>
 
 <div class="stats">
@@ -794,7 +794,7 @@
 <div id="tab-g" class="tab-panel">
 <header>
   <h1>🌿 Gardening Dashboard</h1>
-  <span id="g-updated-date">Updated 2026-07-09 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-09</span>
+  <span id="g-updated-date">Updated 2026-07-10 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-10</span>
 </header>
 
 <div class="container">
@@ -864,7 +864,7 @@
 
   <div class="gd-header">
     <h1>🌱 Gardyn Dashboard</h1>
-    <span style="font-size:0.8rem;color:#888">Updated 2026-07-09</span>
+    <span style="font-size:0.8rem;color:#888">Updated 2026-07-10</span>
   </div>
 
   <div class="gd-stats">
@@ -2636,9 +2636,9 @@ const EXPENSES = [
 // ─────────────────────────────────────────────
 // PLANT_ORDERS_START
 const PLANT_ORDERS = [
-  {"source": "Amazon", "items": "Hollyhock Flower Seeds Pack 1 oz - Over 3,000 Non-GMO Heirloom Hollyhock Seeds for Planting Indoor & Outdoor Gardening (Floral Perennial Mix)", "orderNum": "113-5644283-6717832", "cost": "$13.81", "emailDate": "2026-07-07", "eta": null, "status": "delivered", "category": "garden"},
+  {"source": "Amazon", "items": "Hollyhock Flower Seeds Pack 1 oz - Over 3,000 Non-GMO Heirloom Hollyhock Seeds (Floral Perennial Mix)", "orderNum": "113-5644283-6717832", "cost": "$13.81", "emailDate": "2026-07-07", "eta": null, "status": "delivered", "category": "garden"},
   {"source": "Amazon", "items": "Bonide Repels-All Animal Repellent Granules, 3 lbs - Deer & Rabbit Repellent for Lawn & Garden", "orderNum": "113-5738870-3545866", "cost": "$15.60", "emailDate": "2026-07-06", "eta": null, "status": "delivered", "category": "garden"},
-  {"source": "Amazon", "items": "Dyna-Gro Pro-Tekt 0-0-3 Silicon Supplement for Plants, 1 qt", "orderNum": "113-9544275-7530625", "cost": "$26.58", "emailDate": "2026-07-03", "eta": null, "status": "delivered", "category": "houseplant"},
+  {"source": "Amazon", "items": "Dyna-Gro Pro-Tekt 0-0-3 Silicon Supplement for Plants, 1 qt", "orderNum": "113-9544275-7530625", "cost": "—", "emailDate": "2026-07-03", "eta": null, "status": "delivered", "category": "houseplant"},
 ];
 // PLANT_ORDERS_END
 
@@ -2892,9 +2892,9 @@ function getDivaInfo(p) {
 function isDiva(p) { return !!getDivaInfo(p); }
 
 // ─────────────────────────────────────────────
-// PLANTA SYNC DATA — last synced 2026-07-09
+// PLANTA SYNC DATA — last synced 2026-07-10
 // ─────────────────────────────────────────────
-const PLANTA_SYNC_DATE = "2026-07-09";
+const PLANTA_SYNC_DATE = "2026-07-10";
 const PLANTA_DATA = {
   "Aglaonema Tricolor (Chinese Evergreen)"    : { nextWater: "2026-07-21", lastWater: "2026-07-07", nextMist: null, nextFertilize: "2026-07-15", lastFertilize: "2026-06-30", nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/eatvtimIQLiQ5ZaqCza9VA.webp", potType: "potPlastic", potSize: "15", soil: "tropicalSoil" },
   "Air Plant"                                 : { nextWater: "2026-07-14", lastWater: "2026-07-02", nextMist: null, nextFertilize: "2026-07-08", lastFertilize: "2026-06-23", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/nW0gwJOgQsie0TSCo5X5aQ.webp", potType: "none", potSize: null, soil: null },
@@ -3960,9 +3960,9 @@ function setTodayQuoteAndFact() {
 }
 
 // ─────────────────────────────────────────────
-// OUTDOOR SYNC DATA — last synced 2026-07-09
+// OUTDOOR SYNC DATA — last synced 2026-07-10
 // ─────────────────────────────────────────────
-const OUTDOOR_SYNC_DATE = "2026-07-09";
+const OUTDOOR_SYNC_DATE = "2026-07-10";
 const OUTDOOR_DATA = {
 };
 
