@@ -470,14 +470,14 @@
   <button class="tab-btn active" onclick="switchTab('h', this)">🏠 Houseplants</button>
   <button class="tab-btn"        onclick="switchTab('g', this)">🌳 Garden</button>
   <button class="tab-btn"        onclick="switchTab('gardyn', this)">🌱 Gardyn</button>
-  <div class="tab-sync">🌿 Planta synced 2026-07-22</div>
+  <div class="tab-sync">🌿 Planta synced 2026-07-23</div>
 </div>
 
 <!-- ── HOUSEPLANT TAB ────────────────────────────────────────── -->
 <div id="tab-h" class="tab-panel active">
 <header>
   <h1>Houseplant Dashboard</h1>
-  <span id="updated-date">Updated 2026-07-22 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-22</span>
+  <span id="updated-date">Updated 2026-07-23 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-23</span>
 </header>
 
 <div class="stats">
@@ -794,7 +794,7 @@
 <div id="tab-g" class="tab-panel">
 <header>
   <h1>🌿 Gardening Dashboard</h1>
-  <span id="g-updated-date">Updated 2026-07-22 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-22</span>
+  <span id="g-updated-date">Updated 2026-07-23 &nbsp;·&nbsp; 🌿 Planta synced 2026-07-23</span>
 </header>
 
 <div class="container">
@@ -864,7 +864,7 @@
 
   <div class="gd-header">
     <h1>🌱 Gardyn Dashboard</h1>
-    <span style="font-size:0.8rem;color:#888">Updated 2026-07-22</span>
+    <span style="font-size:0.8rem;color:#888">Updated 2026-07-23</span>
   </div>
 
   <div class="gd-stats">
@@ -2636,6 +2636,7 @@ const EXPENSES = [
 // ─────────────────────────────────────────────
 // PLANT_ORDERS_START
 const PLANT_ORDERS = [
+  {"source": "Amazon", "items": "Lawn & Garden category items (9-item shipment; Amazon notification did not list specific product names)", "orderNum": "113-5428515-5128204", "cost": "204.77", "emailDate": "2026-07-22", "eta": "2026-07-23", "status": "arriving-today", "category": "garden"},
 ];
 // PLANT_ORDERS_END
 
@@ -2889,9 +2890,9 @@ function getDivaInfo(p) {
 function isDiva(p) { return !!getDivaInfo(p); }
 
 // ─────────────────────────────────────────────
-// PLANTA SYNC DATA — last synced 2026-07-22
+// PLANTA SYNC DATA — last synced 2026-07-23
 // ─────────────────────────────────────────────
-const PLANTA_SYNC_DATE = "2026-07-22";
+const PLANTA_SYNC_DATE = "2026-07-23";
 const PLANTA_DATA = {
   "Aglaonema Tricolor (Chinese Evergreen)"    : { nextWater: "2026-07-25", lastWater: "2026-07-07", nextMist: null, nextFertilize: "2026-08-02", lastFertilize: "2026-07-18", nextRepot: "2027-03-07", health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/ueebpmqORqWQJ25vMECgPw.webp", potType: "potPlastic", potSize: "15", soil: "tropicalSoil" },
   "Air Plant"                                 : { nextWater: "2026-07-27", lastWater: "2026-07-17", nextMist: null, nextFertilize: "2026-07-22", lastFertilize: "2026-06-23", nextRepot: null, health: "excellent", imageUrl: "https://images.getplanta.com/v1/resize/p-kvHcr-qGnQy-aLS5-Rp7M2GFZkj6tWDocM1WLrWwM/nW0gwJOgQsie0TSCo5X5aQ.webp", potType: "none", potSize: null, soil: null },
@@ -3957,9 +3958,9 @@ function setTodayQuoteAndFact() {
 }
 
 // ─────────────────────────────────────────────
-// OUTDOOR SYNC DATA — last synced 2026-07-22
+// OUTDOOR SYNC DATA — last synced 2026-07-23
 // ─────────────────────────────────────────────
-const OUTDOOR_SYNC_DATE = "2026-07-22";
+const OUTDOOR_SYNC_DATE = "2026-07-23";
 const OUTDOOR_DATA = {
 };
 
